@@ -70,3 +70,6 @@
 - [x] Meta tags Open Graph dynamiques pour les cagnottes (titre, description, image)
 - [x] API backend pour générer les données OG par cagnotte
 - [x] Tests vitest pour la route OG
+
+## Bugfix: products.bySlug retourne undefined
+- [x] Corriger la requête products.bySlug qui retourne undefined pour slug "identite" sur /te-raga

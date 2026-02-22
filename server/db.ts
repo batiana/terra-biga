@@ -106,9 +106,9 @@ export async function getActiveProducts(category?: string) {
 
 export async function getProductBySlug(slug: string) {
   const db = await getDb();
-  if (!db) return undefined;
+  if (!db) return null;
   const result = await db.select().from(products).where(eq(products.slug, slug)).limit(1);
-  return result[0] ?? undefined;
+  return result[0] ?? null;
 }
 
 export async function getProductById(id: number) {

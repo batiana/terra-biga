@@ -19,14 +19,14 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      {/* Te Raga */}
+      {/* Te Raga — specific routes MUST come before the :slug wildcard */}
       <Route path="/te-raga" component={TeRaga} />
-      <Route path="/te-raga/:slug" component={TeRagaProduct} />
       <Route path="/te-raga/groupe/:groupId" component={JoinGroup} />
       <Route path="/te-raga/identite" component={IdentityForm} />
       <Route path="/te-raga/paiement" component={PaymentPage} />
       <Route path="/te-raga/confirmation" component={ConfirmationPage} />
-      {/* Ma Cagnotte */}
+      <Route path="/te-raga/:slug" component={TeRagaProduct} />
+      {/* Ma Cagnotte — specific routes before :id wildcard */}
       <Route path="/ma-cagnotte" component={MaCagnotte} />
       <Route path="/ma-cagnotte/creer" component={CagnotteCreate} />
       <Route path="/ma-cagnotte/:id" component={CagnotteDetail} />
