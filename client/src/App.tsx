@@ -11,7 +11,6 @@ import { JoinGroup, IdentityForm, PaymentPage, ConfirmationPage } from "./pages/
 import MaCagnotte from "./pages/MaCagnotte";
 import CagnotteCreate from "./pages/CagnotteCreate";
 import CagnotteDetail from "./pages/CagnotteDetail";
-import DonBigaConnect from "./pages/DonBigaConnect";
 import Profil from "./pages/Profil";
 import Admin from "./pages/Admin";
 
@@ -30,8 +29,6 @@ function Router() {
       <Route path="/ma-cagnotte" component={MaCagnotte} />
       <Route path="/ma-cagnotte/creer" component={CagnotteCreate} />
       <Route path="/ma-cagnotte/:id" component={CagnotteDetail} />
-      {/* Don BIGA CONNECT */}
-      <Route path="/don-biga-connect" component={DonBigaConnect} />
       {/* Profil */}
       <Route path="/profil" component={Profil} />
       {/* Admin */}

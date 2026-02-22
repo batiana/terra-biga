@@ -7,3 +7,20 @@ Share modal verified on Ma Cagnotte page:
   - Encouraging message at bottom
 - URL correctly points to /ma-cagnotte/1
 - All 12 tests passing (auth, features, OG routes)
+
+--- Restructure Phase ---
+Homepage renders correctly with new structure:
+- Hero: "Ensemble on va plus loin" + "en Afrique de l'Ouest" ✓
+- Two CTA: Découvrir Te Raga + Lancer une Cagnotte ✓
+- Stats section with animated counters ✓
+- Navigation updated: À propos, Contact (Don BIGA CONNECT removed) ✓
+- CSS tb-btn errors resolved ✓
+- TS errors are in template files (Markdown.tsx, ComponentShowcase.tsx), not our code
+
+Verification complete:
+- JoinGroup page: identity form integrated with coordonnées + pièce d'identité in one page ✓
+- CagnotteCreate: photo upload area visible, Santé category shows medical docs field ✓
+- CagnotteCreate: only Mobile Money number (no duplicate phone field) ✓
+- Homepage: two pillars (Achat Communautaire vs Financement Communautaire) ✓
+- Don BIGA CONNECT removed from nav, integrated as checkbox in payment ✓
+- À propos and Contact sections present on homepage ✓

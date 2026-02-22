@@ -10,13 +10,30 @@ const navItems = [
   { label: "Accueil", href: "/" },
   { label: "Te Raga", href: "/te-raga" },
   { label: "Ma Cagnotte", href: "/ma-cagnotte" },
-  { label: "Don BIGA CONNECT", href: "/don-biga-connect" },
+  { label: "À propos", href: "/#a-propos", isAnchor: true },
+  { label: "Contact", href: "/#contact", isAnchor: true },
 ];
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [location] = useLocation();
   const { user, isAuthenticated, logout } = useAuth();
+
+  const handleAnchorClick = (href: string) => {
+    const hash = href.split("#")[1];
+    if (hash) {
+      // If we're already on the homepage, scroll directly
+      if (location === "/") {
+        const el = document.getElementById(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+      }
+      // Otherwise navigate to homepage then scroll
+      window.location.href = href;
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border shadow-sm">
@@ -31,19 +48,32 @@ export default function Header() {
 
         {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center gap-1">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                location === item.href
-                  ? "bg-tb-green/10 text-tb-green"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            if (item.isAnchor) {
+              return (
+                <button
+                  key={item.href}
+                  onClick={() => handleAnchorClick(item.href)}
+                  className="px-3 py-2 rounded-lg text-sm font-medium transition-colors text-muted-foreground hover:text-foreground hover:bg-accent"
+                >
+                  {item.label}
+                </button>
+              );
+            }
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  location === item.href
+                    ? "bg-tb-green/10 text-tb-green"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         {/* Right side */}
@@ -86,21 +116,38 @@ export default function Header() {
             </SheetTitle>
           </SheetHeader>
           <nav className="flex flex-col p-2">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                className={`flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                  location === item.href
-                    ? "bg-tb-green/10 text-tb-green"
-                    : "text-foreground hover:bg-accent"
-                }`}
-              >
-                {item.label}
-                <ChevronRight className="w-4 h-4 text-muted-foreground" />
-              </Link>
-            ))}
+            {navItems.map((item) => {
+              if (item.isAnchor) {
+                return (
+                  <button
+                    key={item.href}
+                    onClick={() => {
+                      setMobileOpen(false);
+                      setTimeout(() => handleAnchorClick(item.href), 300);
+                    }}
+                    className="flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium transition-colors text-foreground hover:bg-accent text-left"
+                  >
+                    {item.label}
+                    <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                  </button>
+                );
+              }
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`flex items-center justify-between px-4 py-3 rounded-lg text-base font-medium transition-colors ${
+                    location === item.href
+                      ? "bg-tb-green/10 text-tb-green"
+                      : "text-foreground hover:bg-accent"
+                  }`}
+                >
+                  {item.label}
+                  <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                </Link>
+              );
+            })}
             <div className="border-t my-2" />
             {isAuthenticated ? (
               <>

@@ -168,7 +168,8 @@
     min-height: 3rem;
     font-size: 1rem;
     transition: all 0.2s;
-    @apply bg-tb-green text-white;
+    background-color: var(--color-tb-green);
+    color: white;
   }
   .tb-btn-primary:hover { opacity: 0.9; }
   .tb-btn-primary:active { transform: scale(0.98); }
@@ -183,7 +184,8 @@
     min-height: 3rem;
     font-size: 1rem;
     transition: all 0.2s;
-    @apply bg-tb-blue text-white;
+    background-color: var(--color-tb-blue);
+    color: white;
   }
   .tb-btn-secondary:hover { opacity: 0.9; }
   .tb-btn-secondary:active { transform: scale(0.98); }
@@ -198,7 +200,8 @@
     min-height: 3rem;
     font-size: 1rem;
     transition: all 0.2s;
-    @apply bg-tb-orange text-white;
+    background-color: var(--color-tb-orange);
+    color: white;
   }
   .tb-btn-orange:hover { opacity: 0.9; }
   .tb-btn-orange:active { transform: scale(0.98); }

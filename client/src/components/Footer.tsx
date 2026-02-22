@@ -14,7 +14,7 @@ export default function Footer() {
               <span className="font-bold text-lg text-white">Terra Biga</span>
             </div>
             <p className="text-sm leading-relaxed text-white/60">
-              La première plateforme communautaire d'achat groupé et de cagnotte collective au Burkina Faso.
+              La première plateforme communautaire d'achat groupé et de cagnotte collective en Afrique de l'Ouest.
             </p>
           </div>
 
@@ -24,7 +24,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="/te-raga" className="hover:text-white transition-colors">Te Raga — Achat groupé</Link></li>
               <li><Link href="/ma-cagnotte" className="hover:text-white transition-colors">Ma Cagnotte</Link></li>
-              <li><Link href="/don-biga-connect" className="hover:text-white transition-colors">Don BIGA CONNECT</Link></li>
+              <li><Link href="/ma-cagnotte/creer" className="hover:text-white transition-colors">Créer une cagnotte</Link></li>
             </ul>
           </div>
 
@@ -33,7 +33,8 @@ export default function Footer() {
             <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Liens</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/" className="hover:text-white transition-colors">Accueil</Link></li>
-              <li><span className="cursor-default">À propos</span></li>
+              <li><a href="/#a-propos" className="hover:text-white transition-colors">À propos</a></li>
+              <li><a href="/#contact" className="hover:text-white transition-colors">Contact</a></li>
               <li><span className="cursor-default">Conditions d'utilisation</span></li>
               <li><span className="cursor-default">Confidentialité</span></li>
             </ul>
@@ -45,6 +46,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li>Ouagadougou, Burkina Faso</li>
               <li>contact@terrabiga.com</li>
+              <li>+226 70 00 00 00</li>
             </ul>
           </div>
         </div>

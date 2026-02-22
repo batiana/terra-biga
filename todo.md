@@ -73,3 +73,16 @@
 
 ## Bugfix: products.bySlug retourne undefined
 - [x] Corriger la requête products.bySlug qui retourne undefined pour slug "identite" sur /te-raga
+
+## Phase 10: Restructuration Homepage et pages
+- [x] Homepage : opposer Achat Communautaire (Te Raga) vs Financement Communautaire (Ma Cagnotte) en 2 colonnes
+- [x] Homepage : corriger slogan "en Afrique de l'Ouest" au lieu de "au Burkina Faso"
+- [x] Homepage : rappeler l'économie gagnée au paiement dans la section Te Raga
+- [x] Homepage : supprimer la section Don BIGA CONNECT (contribution intégrée au moment du paiement)
+- [x] Homepage : ajouter section À propos
+- [x] Homepage : ajouter section Contact
+- [x] Navigation : supprimer le lien Don BIGA CONNECT du header
+- [x] Te Raga Flow : fusionner le formulaire d'identité dans la page Rejoindre le groupe
+- [x] Créer une cagnotte : ajouter possibilité d'upload de photo
+- [x] Créer une cagnotte : pour catégorie santé, ajouter upload documents médicaux (optionnel)
+- [x] Créer une cagnotte : supprimer le champ téléphone en doublon (garder uniquement numéro Mobile Money pour retrait)

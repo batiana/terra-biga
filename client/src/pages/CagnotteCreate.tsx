@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ArrowLeft, ArrowRight, PiggyBank, Info } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, ArrowRight, PiggyBank, Info, Camera, FileText, X } from "lucide-react";
+import { useState, useRef } from "react";
 import { CAGNOTTE_CATEGORIES, CARRIER_TYPES } from "@shared/types";
 
 export default function CagnotteCreate() {
@@ -18,13 +18,41 @@ export default function CagnotteCreate() {
   const [carrierType, setCarrierType] = useState("");
   const [targetAmount, setTargetAmount] = useState("");
   const [mobileMoneyNumber, setMobileMoneyNumber] = useState("");
-  const [creatorPhone, setCreatorPhone] = useState("");
   const [creatorName, setCreatorName] = useState("");
+
+  // Photo upload
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const photoInputRef = useRef<HTMLInputElement>(null);
+
+  // Medical docs (for santé category)
+  const [medicalDocPreview, setMedicalDocPreview] = useState<string | null>(null);
+  const [medicalDocFile, setMedicalDocFile] = useState<File | null>(null);
+  const medicalInputRef = useRef<HTMLInputElement>(null);
 
   const createMutation = trpc.cagnottes.create.useMutation();
 
   const selectedCat = CAGNOTTE_CATEGORIES.find((c) => c.key === category);
   const needsReview = category === "sante" || category === "association_ong";
+  const isSante = category === "sante";
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPhotoFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => setPhotoPreview(reader.result as string);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleMedicalDocChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setMedicalDocFile(file);
+      setMedicalDocPreview(file.name);
+    }
+  };
 
   const handleSubmit = async () => {
     const amount = parseInt(targetAmount.replace(/\s/g, ""), 10);
@@ -37,7 +65,6 @@ export default function CagnotteCreate() {
       carrierType,
       targetAmount: amount,
       mobileMoneyNumber,
-      creatorPhone,
       creatorName,
     });
 
@@ -63,10 +90,48 @@ export default function CagnotteCreate() {
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
+          {/* Photo upload */}
+          <div>
+            <Label className="mb-1.5 text-sm">Photo de la cagnotte</Label>
+            <div
+              onClick={() => photoInputRef.current?.click()}
+              className="relative h-40 rounded-xl border-2 border-dashed border-border bg-muted/30 flex flex-col items-center justify-center cursor-pointer hover:border-tb-blue/50 transition-colors overflow-hidden"
+            >
+              {photoPreview ? (
+                <>
+                  <img src={photoPreview} alt="Aperçu" className="w-full h-full object-cover" />
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPhotoPreview(null);
+                      setPhotoFile(null);
+                    }}
+                    className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/50 text-white flex items-center justify-center"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Camera className="w-8 h-8 text-muted-foreground/50 mb-2" />
+                  <p className="text-sm text-muted-foreground">Ajouter une photo</p>
+                  <p className="text-xs text-muted-foreground/60">JPG, PNG — max 5 Mo</p>
+                </>
+              )}
+            </div>
+            <input
+              ref={photoInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoChange}
+              className="hidden"
+            />
+          </div>
+
           {/* Category */}
           <div>
-            <Label className="mb-1.5">Catégorie *</Label>
+            <Label className="mb-1.5 text-sm">Catégorie *</Label>
             <Select value={category} onValueChange={setCategory}>
               <SelectTrigger className="h-12 rounded-xl">
                 <SelectValue placeholder="Choisir une catégorie" />
@@ -89,7 +154,7 @@ export default function CagnotteCreate() {
 
           {/* Carrier Type */}
           <div>
-            <Label className="mb-1.5">Type de porteur</Label>
+            <Label className="mb-1.5 text-sm">Type de porteur</Label>
             <Select value={carrierType} onValueChange={setCarrierType}>
               <SelectTrigger className="h-12 rounded-xl">
                 <SelectValue placeholder="Choisir un type" />
@@ -106,7 +171,7 @@ export default function CagnotteCreate() {
 
           {/* Title */}
           <div>
-            <Label className="mb-1.5">Titre de la cagnotte *</Label>
+            <Label className="mb-1.5 text-sm">Titre de la cagnotte *</Label>
             <Input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
@@ -117,7 +182,7 @@ export default function CagnotteCreate() {
 
           {/* Description */}
           <div>
-            <Label className="mb-1.5">Description</Label>
+            <Label className="mb-1.5 text-sm">Description</Label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -126,9 +191,58 @@ export default function CagnotteCreate() {
             />
           </div>
 
+          {/* Medical documents (santé only) */}
+          {isSante && (
+            <div>
+              <Label className="mb-1.5 text-sm flex items-center gap-2">
+                <FileText className="w-4 h-4 text-tb-orange" />
+                Documents médicaux (optionnel)
+              </Label>
+              <p className="text-xs text-muted-foreground mb-2">
+                Ordonnance, certificat médical ou devis hospitalier pour renforcer la crédibilité de votre cagnotte.
+              </p>
+              <div
+                onClick={() => medicalInputRef.current?.click()}
+                className="rounded-xl border-2 border-dashed border-border bg-muted/30 p-4 flex items-center gap-3 cursor-pointer hover:border-tb-orange/50 transition-colors"
+              >
+                {medicalDocPreview ? (
+                  <div className="flex items-center gap-2 w-full">
+                    <FileText className="w-5 h-5 text-tb-orange shrink-0" />
+                    <span className="text-sm text-foreground truncate flex-1">{medicalDocPreview}</span>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMedicalDocPreview(null);
+                        setMedicalDocFile(null);
+                      }}
+                      className="w-6 h-6 rounded-full bg-muted flex items-center justify-center shrink-0"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <FileText className="w-5 h-5 text-muted-foreground/50" />
+                    <div>
+                      <p className="text-sm text-muted-foreground">Ajouter un document</p>
+                      <p className="text-xs text-muted-foreground/60">PDF, JPG, PNG — max 10 Mo</p>
+                    </div>
+                  </>
+                )}
+              </div>
+              <input
+                ref={medicalInputRef}
+                type="file"
+                accept="image/*,.pdf"
+                onChange={handleMedicalDocChange}
+                className="hidden"
+              />
+            </div>
+          )}
+
           {/* Target Amount */}
           <div>
-            <Label className="mb-1.5">Objectif (FCFA) *</Label>
+            <Label className="mb-1.5 text-sm">Objectif (FCFA) *</Label>
             <Input
               type="number"
               value={targetAmount}
@@ -139,9 +253,9 @@ export default function CagnotteCreate() {
             />
           </div>
 
-          {/* Mobile Money Number */}
+          {/* Mobile Money Number (for withdrawal) */}
           <div>
-            <Label className="mb-1.5">Numéro Mobile Money (pour retrait)</Label>
+            <Label className="mb-1.5 text-sm">Numéro Mobile Money (pour retrait) *</Label>
             <Input
               type="tel"
               value={mobileMoneyNumber}
@@ -149,29 +263,20 @@ export default function CagnotteCreate() {
               placeholder="70 00 00 00"
               className="h-12 rounded-xl"
             />
+            <p className="text-xs text-muted-foreground mt-1">
+              Les fonds collectés seront transférés sur ce numéro Mobile Money.
+            </p>
           </div>
 
-          {/* Creator Info */}
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <Label className="mb-1.5">Votre nom</Label>
-              <Input
-                value={creatorName}
-                onChange={(e) => setCreatorName(e.target.value)}
-                placeholder="Nom"
-                className="h-12 rounded-xl"
-              />
-            </div>
-            <div>
-              <Label className="mb-1.5">Votre téléphone</Label>
-              <Input
-                type="tel"
-                value={creatorPhone}
-                onChange={(e) => setCreatorPhone(e.target.value)}
-                placeholder="70 00 00 00"
-                className="h-12 rounded-xl"
-              />
-            </div>
+          {/* Creator Name */}
+          <div>
+            <Label className="mb-1.5 text-sm">Votre nom</Label>
+            <Input
+              value={creatorName}
+              onChange={(e) => setCreatorName(e.target.value)}
+              placeholder="Nom du créateur"
+              className="h-12 rounded-xl"
+            />
           </div>
 
           {needsReview && (
