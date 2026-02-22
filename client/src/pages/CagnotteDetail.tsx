@@ -1,4 +1,5 @@
 import Layout from "@/components/Layout";
+import ShareCagnotte from "@/components/ShareCagnotte";
 import { trpc } from "@/lib/trpc";
 import { useRoute, Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
@@ -8,10 +9,10 @@ import { Label } from "@/components/ui/label";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Switch } from "@/components/ui/switch";
 import {
-  ArrowLeft, ArrowRight, PiggyBank, Users, Share2, CheckCircle,
-  Heart, Smartphone, Phone
+  ArrowLeft, ArrowRight, PiggyBank, Users, CheckCircle,
+  Heart, Phone
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CAGNOTTE_CATEGORIES, PAYMENT_METHODS, SUGGESTED_AMOUNTS } from "@shared/types";
 
 function formatFCFA(n: number) {
@@ -40,6 +41,27 @@ export default function CagnotteDetail() {
 
   const cagnotte = cagnotteQuery.data;
   const contributions = contributionsQuery.data || [];
+
+  // Update document title & OG tags dynamically for better sharing
+  useEffect(() => {
+    if (cagnotte) {
+      document.title = `${cagnotte.title} — Terra Biga`;
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      const ogDesc = document.querySelector('meta[property="og:description"]');
+      const twTitle = document.querySelector('meta[name="twitter:title"]');
+      const twDesc = document.querySelector('meta[name="twitter:description"]');
+      const percent = cagnotte.targetAmount > 0
+        ? Math.min(Math.round((cagnotte.currentAmount / cagnotte.targetAmount) * 100), 100) : 0;
+      const desc = `${formatFCFA(cagnotte.currentAmount)} collectés sur ${formatFCFA(cagnotte.targetAmount)} (${percent}%) — ${cagnotte.contributorsCount} contributeurs. Chaque contribution compte !`;
+      if (ogTitle) ogTitle.setAttribute("content", cagnotte.title + " — Terra Biga");
+      if (ogDesc) ogDesc.setAttribute("content", desc);
+      if (twTitle) twTitle.setAttribute("content", cagnotte.title + " — Terra Biga");
+      if (twDesc) twDesc.setAttribute("content", desc);
+    }
+    return () => {
+      document.title = "Terra Biga - Ensemble on va plus loin";
+    };
+  }, [cagnotte]);
 
   if (cagnotteQuery.isLoading) {
     return (
@@ -99,16 +121,6 @@ export default function CagnotteDetail() {
     setShowContributeForm(false);
   };
 
-  const handleShare = () => {
-    const url = window.location.href;
-    const text = `Contribuez à "${cagnotte.title}" sur Terra Biga : ${url}`;
-    if (navigator.share) {
-      navigator.share({ title: cagnotte.title, text, url });
-    } else {
-      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
-    }
-  };
-
   if (showConfirmation) {
     return (
       <Layout>
@@ -117,17 +129,25 @@ export default function CagnotteDetail() {
             <CheckCircle className="w-8 h-8 text-tb-green" />
           </div>
           <h1 className="text-2xl font-bold mb-2">Merci pour votre contribution !</h1>
-          <p className="text-muted-foreground mb-6">Votre contribution de {formatFCFA(parseInt(amount))} a été enregistrée.</p>
-          <div className="flex flex-col gap-3">
-            <Button onClick={handleShare} variant="outline" className="gap-2 rounded-xl">
-              <Share2 className="w-4 h-4" /> Partager la cagnotte
-            </Button>
-            <Link href="/ma-cagnotte">
-              <Button variant="outline" className="w-full gap-2 rounded-xl">
-                <ArrowLeft className="w-4 h-4" /> Retour aux cagnottes
-              </Button>
-            </Link>
+          <p className="text-muted-foreground mb-4">Votre contribution de {formatFCFA(parseInt(amount))} a été enregistrée.</p>
+
+          {/* Share CTA after contribution */}
+          <div className="tb-card mb-6 text-left">
+            <p className="text-sm font-medium text-foreground mb-3">
+              Aidez cette cagnotte à atteindre son objectif en la partageant :
+            </p>
+            <ShareCagnotte
+              cagnotte={{ ...cagnotte, currentAmount: cagnotte.currentAmount + parseInt(amount) }}
+              variant="button"
+              className="w-full"
+            />
           </div>
+
+          <Link href="/ma-cagnotte">
+            <Button variant="outline" className="w-full gap-2 rounded-xl">
+              <ArrowLeft className="w-4 h-4" /> Retour aux cagnottes
+            </Button>
+          </Link>
         </div>
       </Layout>
     );
@@ -169,7 +189,7 @@ export default function CagnotteDetail() {
           </div>
         </div>
 
-        {/* Actions */}
+        {/* Actions — Contribute + Share */}
         <div className="flex gap-3 mb-6">
           <Button
             onClick={() => setShowContributeForm(!showContributeForm)}
@@ -177,9 +197,7 @@ export default function CagnotteDetail() {
           >
             <Heart className="w-5 h-5" /> Contribuer
           </Button>
-          <Button onClick={handleShare} variant="outline" className="h-12 rounded-xl gap-2 border-tb-blue text-tb-blue">
-            <Share2 className="w-5 h-5" /> Partager
-          </Button>
+          <ShareCagnotte cagnotte={cagnotte} variant="button" />
         </div>
 
         {/* Contribute Form */}

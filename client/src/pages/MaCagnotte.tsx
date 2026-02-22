@@ -1,11 +1,11 @@
 import Layout from "@/components/Layout";
+import ShareCagnotte from "@/components/ShareCagnotte";
 import { trpc } from "@/lib/trpc";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PiggyBank, Users, Plus, ArrowRight, Search } from "lucide-react";
+import { PiggyBank, Plus, ArrowRight, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useState, useMemo } from "react";
 import { CAGNOTTE_CATEGORIES } from "@shared/types";
@@ -100,10 +100,12 @@ export default function MaCagnotte() {
 
               return (
                 <div key={cagnotte.id} className="tb-card flex flex-col">
-                  <div className="flex items-center gap-2 mb-2">
+                  {/* Category + Share icon */}
+                  <div className="flex items-center justify-between mb-2">
                     <span className="text-xs px-2 py-0.5 rounded-full bg-tb-blue/10 text-tb-blue font-medium">
                       {catInfo?.icon} {catInfo?.label || cagnotte.category}
                     </span>
+                    <ShareCagnotte cagnotte={cagnotte} variant="icon" />
                   </div>
                   <h3 className="font-semibold text-foreground mb-2 line-clamp-2">{cagnotte.title}</h3>
                   {cagnotte.description && (

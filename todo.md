@@ -61,3 +61,12 @@
 - [x] Vitest unit tests for key routers (8 tests passing)
 - [x] Mobile responsiveness verification
 - [x] Final checkpoint and delivery
+
+## Phase 9: Partage réseaux sociaux pour cagnottes
+- [x] Composant ShareModal réutilisable (WhatsApp, Facebook, Twitter/X, Telegram, copie de lien)
+- [x] Bouton de partage sur la page détail cagnotte (/ma-cagnotte/:id)
+- [x] Bouton de partage sur la page confirmation de contribution
+- [x] Bouton de partage rapide sur les cartes cagnotte (liste)
+- [x] Meta tags Open Graph dynamiques pour les cagnottes (titre, description, image)
+- [x] API backend pour générer les données OG par cagnotte
+- [x] Tests vitest pour la route OG
