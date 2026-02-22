@@ -4,13 +4,15 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Menu, X, User, LogOut, ChevronRight } from "lucide-react";
+import { Menu, User, LogOut, ChevronRight } from "lucide-react";
+
+const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663373135176/pkmPyuwyvofTreWf.svg";
 
 const navItems = [
   { label: "Accueil", href: "/" },
   { label: "Te Raga", href: "/te-raga" },
   { label: "Ma Cagnotte", href: "/ma-cagnotte" },
-  { label: "À propos", href: "/#a-propos", isAnchor: true },
+  { label: "À propos", href: "/a-propos" },
   { label: "Contact", href: "/#contact", isAnchor: true },
 ];
 
@@ -22,7 +24,6 @@ export default function Header() {
   const handleAnchorClick = (href: string) => {
     const hash = href.split("#")[1];
     if (hash) {
-      // If we're already on the homepage, scroll directly
       if (location === "/") {
         const el = document.getElementById(hash);
         if (el) {
@@ -30,7 +31,6 @@ export default function Header() {
           return;
         }
       }
-      // Otherwise navigate to homepage then scroll
       window.location.href = href;
     }
   };
@@ -40,10 +40,12 @@ export default function Header() {
       <div className="container flex items-center justify-between h-14 sm:h-16">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br from-tb-orange to-tb-green flex items-center justify-center">
-            <span className="text-white font-bold text-sm sm:text-base">TB</span>
-          </div>
-          <span className="font-bold text-lg sm:text-xl text-foreground hidden sm:inline">Terra Biga</span>
+          <img
+            src={LOGO_URL}
+            alt="Terra Biga"
+            className="h-8 sm:h-9 w-auto"
+            loading="eager"
+          />
         </Link>
 
         {/* Desktop Nav */}
@@ -109,10 +111,7 @@ export default function Header() {
         <SheetContent side="left" className="w-[280px] p-0">
           <SheetHeader className="p-4 border-b">
             <SheetTitle className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-tb-orange to-tb-green flex items-center justify-center">
-                <span className="text-white font-bold text-sm">TB</span>
-              </div>
-              Terra Biga
+              <img src={LOGO_URL} alt="Terra Biga" className="h-7 w-auto" />
             </SheetTitle>
           </SheetHeader>
           <nav className="flex flex-col p-2">
@@ -159,6 +158,16 @@ export default function Header() {
                   <User className="w-5 h-5" />
                   Mon Profil
                 </Link>
+                {user?.role === "admin" && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setMobileOpen(false)}
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium hover:bg-accent"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                    Administration
+                  </Link>
+                )}
                 <button
                   onClick={() => { logout(); setMobileOpen(false); }}
                   className="flex items-center gap-3 px-4 py-3 rounded-lg text-base font-medium text-destructive hover:bg-destructive/10"

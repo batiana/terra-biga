@@ -1,14 +1,24 @@
 import Layout from "@/components/Layout";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   ShoppingCart, PiggyBank, Users, TrendingDown, CreditCard, MapPin,
-  Smartphone, Shield, Share2, ChevronRight, Star, Zap, Gift,
-  ArrowRight, CheckCircle, Mail, Phone, Heart, Globe, Award
+  Smartphone, Shield, Share2, ChevronRight, Star, Zap,
+  ArrowRight, CheckCircle, Mail, Phone, Heart
 } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+
+const HERO_IMG = "https://private-us-east-1.manuscdn.com/sessionFile/aUJIVJBKGXtP7txic92MqH/sandbox/NeeBadV5Z06nGEnsS0EXWA-img-1_1771721385000_na1fn_aGVyby10ZXJyYS1iaWdh.jpg?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvYVVKSVZKQktHWHRQN3R4aWM5Mk1xSC9zYW5kYm94L05lZUJhZFY1WjA2bkdFbnNTMEVYV0EtaW1nLTFfMTc3MTcyMTM4NTAwMF9uYTFmbl9hR1Z5YnkxMFpYSnlZUzFpYVdkaC5qcGc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=SVcL2uOZedoLhp14i~x0W4LlKuR96kvr0HDrv-HqzHkXLMCBE-o9kGibjalB~WwtuwwkGVqsVDE4o4adQ3VQhszWrHWNzo1vARcAT5j2QamSS5eRPkPvP-UM1-VIFuNCXN5NsiJCWg3Sux2Ujv5IC2OG3zYeqvD1GgkkYKE42xH2R9KO3qI7cRGgHvUUMVKZmf2xrWxMwbLvielVo75x3iVM3kAsMmpQHKTrBJAlhWYdc3xQStQHrjUwPDn1s9porA0avwW1p7-zOQtpnb6e5MKUIA2PR245DXwBynWz41NHrcjWPEhfKx7uxKDq-Hif1-C2Fm1fJdRmTys-6-h3fw__";
+
+const PARTNER_LOGOS = [
+  { name: "Orange", img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663373135176/XmecCmcJFPBQqWKs.jpg" },
+  { name: "Lefaso.net", img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663373135176/LIMdWQToaKOTXBrA.jpg" },
+  { name: "Kéré Architecture", img: null },
+  { name: "Min. des Finances", img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663373135176/JQvbdegyDYprWWUG.jpg" },
+  { name: "PNUD Burkina Faso", img: "https://files.manuscdn.com/user_upload_by_module/session_file/310519663373135176/VTjHBhKifUCRZnBS.jpg" },
+  { name: "Min. Transition Digitale", img: null },
+];
 
 // ─── Animated Counter ────────────────────────────────────────────────
 function AnimatedCounter({ end, suffix = "", prefix = "" }: { end: number; suffix?: string; prefix?: string }) {
@@ -67,7 +77,7 @@ function StepCard({ step, title, description, icon }: { step: number; title: str
   );
 }
 
-// ─── Testimonial ─────────────────────────────────────────────────────
+// ─── Testimonials ─────────────────────────────────────────────────────
 const testimonials = [
   { name: "Fatou D.", city: "Ouagadougou", text: "Grâce à Te Raga, j'ai économisé 30% sur mon kit solaire. Le groupe s'est rempli en 3 jours !", avatar: "FD" },
   { name: "Ibrahim K.", city: "Bobo-Dioulasso", text: "Ma Cagnotte nous a permis de financer le mariage de ma sœur. Simple et rapide !", avatar: "IK" },
@@ -86,25 +96,45 @@ export default function Home() {
 
   return (
     <Layout>
-      {/* ─── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-tb-green/5 via-background to-tb-orange/5">
-        <div className="container py-12 sm:py-20 lg:py-28">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-4">
-              Ensemble on va <span className="text-tb-green">plus loin</span>
+      {/* ─── Hero with Image ─────────────────────────────────── */}
+      <section className="relative overflow-hidden">
+        {/* Background image with overlay */}
+        <div className="absolute inset-0">
+          <img
+            src={HERO_IMG}
+            alt="Communauté Terra Biga"
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+        </div>
+
+        <div className="container relative py-16 sm:py-24 lg:py-32">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm text-white/90 text-xs font-medium px-3 py-1.5 rounded-full mb-5">
+              <Zap className="w-3.5 h-3.5" />
+              Première plateforme en Afrique de l'Ouest
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-4">
+              Ensemble on va{" "}
+              <span className="text-tb-green">plus loin</span>
             </h1>
-            <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto">
-              La première plateforme communautaire d'achat groupé et de cagnotte collective en Afrique de l'Ouest
+            <p className="text-base sm:text-lg text-white/80 mb-3 max-w-xl leading-relaxed">
+              La première plateforme communautaire d'achat groupé et de cagnotte collective en Afrique de l'Ouest.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <p className="text-sm sm:text-base text-tb-green font-semibold mb-8 flex items-center gap-2">
+              <TrendingDown className="w-5 h-5" />
+              Économisez jusqu'à 30% grâce à l'achat groupé
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3">
               <Link href="/te-raga">
-                <Button className="w-full sm:w-auto bg-tb-green hover:bg-tb-green/90 text-white h-12 px-6 text-base rounded-xl gap-2">
+                <Button className="w-full sm:w-auto bg-tb-green hover:bg-tb-green/90 text-white h-12 px-7 text-base rounded-xl gap-2 shadow-lg shadow-tb-green/25">
                   <ShoppingCart className="w-5 h-5" />
                   Découvrir Te Raga
                 </Button>
               </Link>
               <Link href="/ma-cagnotte/creer">
-                <Button className="w-full sm:w-auto bg-tb-blue hover:bg-tb-blue/90 text-white h-12 px-6 text-base rounded-xl gap-2">
+                <Button className="w-full sm:w-auto bg-white/15 backdrop-blur-sm hover:bg-white/25 text-white border border-white/20 h-12 px-7 text-base rounded-xl gap-2">
                   <PiggyBank className="w-5 h-5" />
                   Lancer une Cagnotte
                 </Button>
@@ -112,12 +142,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="absolute -top-20 -right-20 w-60 h-60 bg-tb-green/5 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-tb-orange/5 rounded-full blur-3xl" />
       </section>
 
       {/* ─── Key Figures ──────────────────────────────────────── */}
-      <section className="bg-white border-y border-border">
+      <section className="bg-white border-b border-border">
         <div className="container py-10 sm:py-14">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
             <div>
@@ -159,7 +187,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h3 className="text-xl font-bold text-foreground">Achat Communautaire</h3>
-                  <p className="text-sm text-tb-green font-medium">Te Raga</p>
+                  <p className="text-sm text-tb-green font-medium">Te Raga — "Viens acheter"</p>
                 </div>
               </div>
 
@@ -174,7 +202,7 @@ export default function Home() {
                   <span className="font-bold text-tb-green">Économie garantie</span>
                 </div>
                 <p className="text-sm text-foreground">
-                  Jusqu'à <span className="font-bold text-tb-green">-30%</span> sur le prix standard grâce à l'achat groupé. Paiement en 2 fois : <span className="font-semibold">10% d'avance</span>, 90% à la collecte.
+                  Jusqu'à <span className="font-bold text-tb-green">-30%</span> sur le prix standard grâce à l'achat groupé. Paiement en 2 fois : <span className="font-semibold">10% d'avance</span>, solde à la collecte.
                 </p>
               </div>
 
@@ -186,10 +214,6 @@ export default function Home() {
                 <div className="flex items-center gap-3 text-sm">
                   <CheckCircle className="w-4 h-4 text-tb-green shrink-0" />
                   <span>Paiement en 2 fois (10% + 90%)</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <CheckCircle className="w-4 h-4 text-tb-green shrink-0" />
-                  <span>Collecte au dépôt ZAD, Ouagadougou</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <CheckCircle className="w-4 h-4 text-tb-green shrink-0" />
@@ -229,7 +253,7 @@ export default function Home() {
                   <span className="font-bold text-tb-blue">Solidarité simplifiée</span>
                 </div>
                 <p className="text-sm text-foreground">
-                  Gratuit jusqu'à <span className="font-bold text-tb-blue">50 000 FCFA</span>. Partagez le lien par WhatsApp et recevez les contributions instantanément.
+                  Créez votre cagnotte en <span className="font-bold text-tb-blue">2 minutes</span>, partagez le lien, et recevez les contributions directement sur votre Mobile Money.
                 </p>
               </div>
 
@@ -245,10 +269,6 @@ export default function Home() {
                 <div className="flex items-center gap-3 text-sm">
                   <CheckCircle className="w-4 h-4 text-tb-blue shrink-0" />
                   <span>Retrait direct via Mobile Money</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <CheckCircle className="w-4 h-4 text-tb-blue shrink-0" />
-                  <span>Possibilité de faire un don BIGA CONNECT</span>
                 </div>
               </div>
 
@@ -282,10 +302,35 @@ export default function Home() {
             <TabsContent value="cagnotte" className="space-y-5">
               <StepCard step={1} title="Créez votre cagnotte" description="Choisissez une catégorie, ajoutez une photo et définissez un objectif." icon={<PiggyBank className="w-4 h-4 text-tb-blue" />} />
               <StepCard step={2} title="Partagez le lien" description="Envoyez le lien par WhatsApp, SMS ou tout autre moyen." icon={<Share2 className="w-4 h-4 text-tb-blue" />} />
-              <StepCard step={3} title="Recevez les contributions" description="Vos proches contribuent facilement via Mobile Money. Possibilité de don BIGA CONNECT." icon={<CreditCard className="w-4 h-4 text-tb-blue" />} />
+              <StepCard step={3} title="Recevez les contributions" description="Vos proches contribuent facilement via Mobile Money." icon={<CreditCard className="w-4 h-4 text-tb-blue" />} />
               <StepCard step={4} title="Retirez via Mobile Money" description="Transférez les fonds collectés directement sur votre numéro Mobile Money." icon={<Smartphone className="w-4 h-4 text-tb-blue" />} />
             </TabsContent>
           </Tabs>
+        </div>
+      </section>
+
+      {/* ─── Partners ─────────────────────────────────────────── */}
+      <section className="py-10 sm:py-14 border-y border-border">
+        <div className="container">
+          <p className="text-center text-xs uppercase tracking-wider text-muted-foreground mb-6">Nos partenaires & soutiens</p>
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+            {PARTNER_LOGOS.map((p) => (
+              <div key={p.name} className="flex flex-col items-center gap-2">
+                {p.img ? (
+                  <img
+                    src={p.img}
+                    alt={p.name}
+                    className="h-10 sm:h-12 w-auto object-contain rounded-lg grayscale hover:grayscale-0 transition-all duration-300"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="h-10 sm:h-12 flex items-center px-3 rounded-lg bg-muted/50">
+                    <span className="text-xs sm:text-sm font-semibold text-muted-foreground">{p.name}</span>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -350,50 +395,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── À propos ─────────────────────────────────────────── */}
-      <section id="a-propos" className="py-10 sm:py-16">
-        <div className="container">
-          <div className="max-w-3xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">À propos de Terra Biga</h2>
-              <p className="text-muted-foreground">Notre mission : rendre l'économie collaborative accessible à tous</p>
-            </div>
-
-            <div className="rounded-2xl border border-border bg-white p-6 sm:p-8 shadow-sm mb-6">
-              <p className="text-foreground leading-relaxed mb-4">
-                <span className="font-bold text-tb-green">Terra Biga</span> est la première plateforme communautaire d'achat groupé et de cagnotte collective en Afrique de l'Ouest. Née au Burkina Faso, notre mission est de permettre à chacun d'économiser grâce à la force du collectif et de financer ses projets de vie grâce à la solidarité communautaire.
-              </p>
-              <p className="text-foreground leading-relaxed mb-4">
-                "Te Raga" signifie "viens acheter" en Mooré. C'est l'esprit de notre plateforme : ensemble, on achète mieux et on va plus loin. Que ce soit pour un kit solaire, des fournitures scolaires ou un mariage, Terra Biga est là pour vous accompagner.
-              </p>
-              <p className="text-foreground leading-relaxed">
-                Optimisée pour les smartphones d'entrée de gamme et les connexions 3G, notre plateforme est conçue pour être accessible à tous, partout en Afrique de l'Ouest.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="rounded-xl border border-border bg-white p-4 text-center shadow-sm">
-                <Award className="w-8 h-8 text-tb-orange mx-auto mb-2" />
-                <p className="font-semibold text-sm">Lauréate Faso Digital</p>
-                <p className="text-xs text-muted-foreground">& POESAM</p>
-              </div>
-              <div className="rounded-xl border border-border bg-white p-4 text-center shadow-sm">
-                <Globe className="w-8 h-8 text-tb-green mx-auto mb-2" />
-                <p className="font-semibold text-sm">Membre Orange Fab</p>
-                <p className="text-xs text-muted-foreground">Burkina Faso</p>
-              </div>
-              <div className="rounded-xl border border-border bg-white p-4 text-center shadow-sm">
-                <Star className="w-8 h-8 text-tb-blue mx-auto mb-2" />
-                <p className="font-semibold text-sm">Partenaire Lefaso.net</p>
-                <p className="text-xs text-muted-foreground">Média partenaire</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ─── Contact ──────────────────────────────────────────── */}
-      <section id="contact" className="py-10 sm:py-16 bg-white">
+      <section id="contact" className="py-10 sm:py-16">
         <div className="container">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-8">
@@ -402,7 +405,7 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-              <div className="rounded-2xl border border-border bg-background p-5 flex items-start gap-4">
+              <div className="rounded-2xl border border-border bg-white p-5 flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-tb-green/10 flex items-center justify-center shrink-0">
                   <Phone className="w-5 h-5 text-tb-green" />
                 </div>
@@ -412,7 +415,7 @@ export default function Home() {
                   <p className="text-sm text-muted-foreground">+226 76 00 00 00</p>
                 </div>
               </div>
-              <div className="rounded-2xl border border-border bg-background p-5 flex items-start gap-4">
+              <div className="rounded-2xl border border-border bg-white p-5 flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-tb-blue/10 flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5 text-tb-blue" />
                 </div>
@@ -424,7 +427,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-background p-5 flex items-start gap-4">
+            <div className="rounded-2xl border border-border bg-white p-5 flex items-start gap-4">
               <div className="w-10 h-10 rounded-xl bg-tb-orange/10 flex items-center justify-center shrink-0">
                 <MapPin className="w-5 h-5 text-tb-orange" />
               </div>

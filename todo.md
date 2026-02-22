@@ -86,3 +86,11 @@
 - [x] Créer une cagnotte : ajouter possibilité d'upload de photo
 - [x] Créer une cagnotte : pour catégorie santé, ajouter upload documents médicaux (optionnel)
 - [x] Créer une cagnotte : supprimer le champ téléphone en doublon (garder uniquement numéro Mobile Money pour retrait)
+
+## Phase 11: Logo, partenaires, UX homepage, page À propos
+- [x] Intégrer le logo Terra Biga SVG dans le header (remplacer le cercle TB)
+- [x] Mettre à jour les partenaires : Orange, Lefaso.net, Kéré Architecture, Ministère des Finances, PNUD Burkina Faso, Ministère de la Transition Digitale
+- [x] Améliorer l'UX de la homepage (hero image, meilleure hiérarchie visuelle, animations)
+- [x] Créer une page À propos dédiée (/a-propos) séparée de la homepage
+- [x] Mettre à jour la navigation pour pointer vers /a-propos
+- [x] Supprimer la section À propos inline de la homepage

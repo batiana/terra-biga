@@ -24,3 +24,10 @@ Verification complete:
 - Homepage: two pillars (Achat Communautaire vs Financement Communautaire) ✓
 - Don BIGA CONNECT removed from nav, integrated as checkbox in payment ✓
 - À propos and Contact sections present on homepage ✓
+
+--- Phase 11: Logo, Partners, Homepage UX, À propos ---
+- Homepage: Hero image renders with community illustration, logo in header, gradient overlay, CTA buttons visible
+- Header: Terra Biga SVG logo displayed, nav items: Accueil, Te Raga, Ma Cagnotte, À propos, Contact
+- À propos page: Renders correctly with logo, mission, values, services, timeline, partners, tech section
+- Partners section visible on both homepage and À propos page
+- All 12 tests pass

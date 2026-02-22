@@ -13,6 +13,7 @@ import CagnotteCreate from "./pages/CagnotteCreate";
 import CagnotteDetail from "./pages/CagnotteDetail";
 import Profil from "./pages/Profil";
 import Admin from "./pages/Admin";
+import APropos from "./pages/APropos";
 
 function Router() {
   return (
@@ -29,6 +30,8 @@ function Router() {
       <Route path="/ma-cagnotte" component={MaCagnotte} />
       <Route path="/ma-cagnotte/creer" component={CagnotteCreate} />
       <Route path="/ma-cagnotte/:id" component={CagnotteDetail} />
+      {/* À propos */}
+      <Route path="/a-propos" component={APropos} />
       {/* Profil */}
       <Route path="/profil" component={Profil} />
       {/* Admin */}

@@ -1,5 +1,7 @@
 import { Link } from "wouter";
 
+const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663373135176/pkmPyuwyvofTreWf.svg";
+
 export default function Footer() {
   return (
     <footer className="bg-foreground text-white/80">
@@ -8,10 +10,12 @@ export default function Footer() {
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-tb-orange to-tb-green flex items-center justify-center">
-                <span className="text-white font-bold text-sm">TB</span>
-              </div>
-              <span className="font-bold text-lg text-white">Terra Biga</span>
+              <img
+                src={LOGO_URL}
+                alt="Terra Biga"
+                className="h-8 w-auto brightness-0 invert"
+                loading="lazy"
+              />
             </div>
             <p className="text-sm leading-relaxed text-white/60">
               La première plateforme communautaire d'achat groupé et de cagnotte collective en Afrique de l'Ouest.
@@ -33,7 +37,7 @@ export default function Footer() {
             <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Liens</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/" className="hover:text-white transition-colors">Accueil</Link></li>
-              <li><a href="/#a-propos" className="hover:text-white transition-colors">À propos</a></li>
+              <li><Link href="/a-propos" className="hover:text-white transition-colors">À propos</Link></li>
               <li><a href="/#contact" className="hover:text-white transition-colors">Contact</a></li>
               <li><span className="cursor-default">Conditions d'utilisation</span></li>
               <li><span className="cursor-default">Confidentialité</span></li>
@@ -51,10 +55,23 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/10 mt-8 pt-6">
+        {/* Partners strip */}
+        <div className="border-t border-white/10 mt-8 pt-6 mb-6">
+          <p className="text-xs text-white/40 text-center mb-4 uppercase tracking-wider">Nos partenaires</p>
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 opacity-60">
+            <span className="text-xs font-semibold text-white/70">Orange</span>
+            <span className="text-xs font-semibold text-white/70">Lefaso.net</span>
+            <span className="text-xs font-semibold text-white/70">Kéré Architecture</span>
+            <span className="text-xs font-semibold text-white/70">Min. des Finances</span>
+            <span className="text-xs font-semibold text-white/70">PNUD</span>
+            <span className="text-xs font-semibold text-white/70">Min. Transition Digitale</span>
+          </div>
+        </div>
+
+        <div className="border-t border-white/10 pt-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-white/40">
             <p>&copy; 2025 Terra Biga — Tous droits réservés</p>
-            <p className="text-center">Lauréate Faso Digital & POESAM &middot; Membre Orange Fab &middot; Partenaire Lefaso.net</p>
+            <p className="text-center">Lauréate Faso Digital & POESAM &middot; Membre Orange Fab</p>
           </div>
         </div>
       </div>
