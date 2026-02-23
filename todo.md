@@ -109,3 +109,24 @@
 - [x] Te Raga : appel à rejoindre le groupe WhatsApp Terra Biga
 - [x] CagnotteCreate : déplacer la photo en fin de formulaire
 - [x] Mettre à jour navigation (Contact comme page séparée, News)
+
+
+## Phase 13: Prompt V4 — Restructuration complète
+- [x] Mise à jour schéma DB : 16 tables, colonnes V4 (porteur, contreparties, frais, etc.)
+- [x] Renommage global Ma Cagnotte → Mam Cagnotte dans toutes les routes et composants
+- [x] Homepage hero fullscreen avec image communautaire, overlay, CTAs modifiés
+- [x] CTAs: "Achat Communautaire" + "Découvrir Te Raga — Rejoignez un groupe d'achat"
+- [x] CTAs: "Financement Communautaire" + "Lancez une cagnotte avec Mam Cagnotte"
+- [x] Logo agrandi dans header (h-12 md:h-14)
+- [x] Service Ligidicash backend avec stubs de paiement
+- [x] Routes de callback pour paiements Ligidicash
+- [x] Admin restructuré : paiements séparés Te Raga/Mam Cagnotte
+- [x] Admin : dossier porteur pour validation cagnottes
+- [x] Admin : filtre par produit pour les commandes
+- [x] Admin : CRUD complet pour les actualités (News)
+- [x] Mam Cagnotte : contreparties, objectif optionnel, frais 500 FCFA
+- [x] Te Raga : Ligidicash redirect payment, doc types mis à jour
+- [x] Profil : points séparés Te Raga/Mam Cagnotte
+- [x] Profil : onglets historique séparés (Te Raga vs Mam Cagnotte)
+- [x] CagnotteDetail : affichage contreparties, Ligidicash redirect, frais 500 FCFA
+- [x] Tous les 12 tests vitest passants
