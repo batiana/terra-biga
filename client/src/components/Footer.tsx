@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 
-const LOGO_URL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663373135176/pkmPyuwyvofTreWf.svg";
+const LOGO_FULL = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663373135176/CVgkfXXzqFTyhJrb.png";
 
 export default function Footer() {
   return (
@@ -11,9 +11,9 @@ export default function Footer() {
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2 mb-3">
               <img
-                src={LOGO_URL}
+                src={LOGO_FULL}
                 alt="Terra Biga"
-                className="h-8 w-auto brightness-0 invert"
+                className="h-10 w-auto brightness-0 invert"
                 loading="lazy"
               />
             </div>
@@ -37,8 +37,9 @@ export default function Footer() {
             <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Liens</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/" className="hover:text-white transition-colors">Accueil</Link></li>
+              <li><Link href="/actualites" className="hover:text-white transition-colors">Actualités</Link></li>
               <li><Link href="/a-propos" className="hover:text-white transition-colors">À propos</Link></li>
-              <li><a href="/#contact" className="hover:text-white transition-colors">Contact</a></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
               <li><span className="cursor-default">Conditions d'utilisation</span></li>
               <li><span className="cursor-default">Confidentialité</span></li>
             </ul>
@@ -48,9 +49,10 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Contact</h4>
             <ul className="space-y-2 text-sm">
-              <li>Ouagadougou, Burkina Faso</li>
-              <li>contact@terrabiga.com</li>
-              <li>+226 70 00 00 00</li>
+              <li>Rue Teend Beogo, Ouagadougou</li>
+              <li>Burkina Faso</li>
+              <li><a href="mailto:contact@terrabiga.com" className="hover:text-white transition-colors">contact@terrabiga.com</a></li>
+              <li><a href="tel:+22602283893" className="hover:text-white transition-colors">+226 02 28 38 93</a></li>
             </ul>
           </div>
         </div>

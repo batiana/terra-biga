@@ -14,6 +14,8 @@ import CagnotteDetail from "./pages/CagnotteDetail";
 import Profil from "./pages/Profil";
 import Admin from "./pages/Admin";
 import APropos from "./pages/APropos";
+import Contact from "./pages/Contact";
+import News from "./pages/News";
 
 function Router() {
   return (
@@ -30,8 +32,10 @@ function Router() {
       <Route path="/ma-cagnotte" component={MaCagnotte} />
       <Route path="/ma-cagnotte/creer" component={CagnotteCreate} />
       <Route path="/ma-cagnotte/:id" component={CagnotteDetail} />
-      {/* À propos */}
+      {/* À propos, Contact & News */}
       <Route path="/a-propos" component={APropos} />
+      <Route path="/contact" component={Contact} />
+      <Route path="/actualites" component={News} />
       {/* Profil */}
       <Route path="/profil" component={Profil} />
       {/* Admin */}

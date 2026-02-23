@@ -91,44 +91,6 @@ export default function CagnotteCreate() {
         </div>
 
         <div className="space-y-5">
-          {/* Photo upload */}
-          <div>
-            <Label className="mb-1.5 text-sm">Photo de la cagnotte</Label>
-            <div
-              onClick={() => photoInputRef.current?.click()}
-              className="relative h-40 rounded-xl border-2 border-dashed border-border bg-muted/30 flex flex-col items-center justify-center cursor-pointer hover:border-tb-blue/50 transition-colors overflow-hidden"
-            >
-              {photoPreview ? (
-                <>
-                  <img src={photoPreview} alt="Aperçu" className="w-full h-full object-cover" />
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setPhotoPreview(null);
-                      setPhotoFile(null);
-                    }}
-                    className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/50 text-white flex items-center justify-center"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Camera className="w-8 h-8 text-muted-foreground/50 mb-2" />
-                  <p className="text-sm text-muted-foreground">Ajouter une photo</p>
-                  <p className="text-xs text-muted-foreground/60">JPG, PNG — max 5 Mo</p>
-                </>
-              )}
-            </div>
-            <input
-              ref={photoInputRef}
-              type="file"
-              accept="image/*"
-              onChange={handlePhotoChange}
-              className="hidden"
-            />
-          </div>
-
           {/* Category */}
           <div>
             <Label className="mb-1.5 text-sm">Catégorie *</Label>
@@ -152,46 +114,7 @@ export default function CagnotteCreate() {
             )}
           </div>
 
-          {/* Carrier Type */}
-          <div>
-            <Label className="mb-1.5 text-sm">Type de porteur</Label>
-            <Select value={carrierType} onValueChange={setCarrierType}>
-              <SelectTrigger className="h-12 rounded-xl">
-                <SelectValue placeholder="Choisir un type" />
-              </SelectTrigger>
-              <SelectContent>
-                {CARRIER_TYPES.map((ct) => (
-                  <SelectItem key={ct.key} value={ct.key}>
-                    {ct.icon} {ct.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Title */}
-          <div>
-            <Label className="mb-1.5 text-sm">Titre de la cagnotte *</Label>
-            <Input
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Ex: Mariage de Fatou & Ibrahim"
-              className="h-12 rounded-xl"
-            />
-          </div>
-
-          {/* Description */}
-          <div>
-            <Label className="mb-1.5 text-sm">Description</Label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              placeholder="Décrivez votre projet pour encourager les contributions..."
-              className="w-full min-h-[100px] rounded-xl border border-input bg-background px-3 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
-            />
-          </div>
-
-          {/* Medical documents (santé only) */}
+          {/* Medical documents (santé only) — right after category */}
           {isSante && (
             <div>
               <Label className="mb-1.5 text-sm flex items-center gap-2">
@@ -240,6 +163,45 @@ export default function CagnotteCreate() {
             </div>
           )}
 
+          {/* Carrier Type */}
+          <div>
+            <Label className="mb-1.5 text-sm">Type de porteur</Label>
+            <Select value={carrierType} onValueChange={setCarrierType}>
+              <SelectTrigger className="h-12 rounded-xl">
+                <SelectValue placeholder="Choisir un type" />
+              </SelectTrigger>
+              <SelectContent>
+                {CARRIER_TYPES.map((ct) => (
+                  <SelectItem key={ct.key} value={ct.key}>
+                    {ct.icon} {ct.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Title */}
+          <div>
+            <Label className="mb-1.5 text-sm">Titre de la cagnotte *</Label>
+            <Input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Ex: Mariage de Fatou & Ibrahim"
+              className="h-12 rounded-xl"
+            />
+          </div>
+
+          {/* Description */}
+          <div>
+            <Label className="mb-1.5 text-sm">Description</Label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Décrivez votre projet pour encourager les contributions..."
+              className="w-full min-h-[100px] rounded-xl border border-input bg-background px-3 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+            />
+          </div>
+
           {/* Target Amount */}
           <div>
             <Label className="mb-1.5 text-sm">Objectif (FCFA) *</Label>
@@ -276,6 +238,44 @@ export default function CagnotteCreate() {
               onChange={(e) => setCreatorName(e.target.value)}
               placeholder="Nom du créateur"
               className="h-12 rounded-xl"
+            />
+          </div>
+
+          {/* Photo upload — moved to end of form */}
+          <div>
+            <Label className="mb-1.5 text-sm">Photo de la cagnotte (optionnel)</Label>
+            <div
+              onClick={() => photoInputRef.current?.click()}
+              className="relative h-40 rounded-xl border-2 border-dashed border-border bg-muted/30 flex flex-col items-center justify-center cursor-pointer hover:border-tb-blue/50 transition-colors overflow-hidden"
+            >
+              {photoPreview ? (
+                <>
+                  <img src={photoPreview} alt="Aperçu" className="w-full h-full object-cover" />
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPhotoPreview(null);
+                      setPhotoFile(null);
+                    }}
+                    className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/50 text-white flex items-center justify-center"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Camera className="w-8 h-8 text-muted-foreground/50 mb-2" />
+                  <p className="text-sm text-muted-foreground">Ajouter une photo</p>
+                  <p className="text-xs text-muted-foreground/60">JPG, PNG — max 5 Mo</p>
+                </>
+              )}
+            </div>
+            <input
+              ref={photoInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoChange}
+              className="hidden"
             />
           </div>
 

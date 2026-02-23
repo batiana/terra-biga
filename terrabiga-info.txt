@@ -1,0 +1,55 @@
+TERRABIGA.COM - À PROPOS PAGE CONTENT
+
+Header: "Nous croyons au pouvoir du collectif."
+
+Intro: Terra Biga est née d'une conviction simple : le développement durable de l'Afrique ne viendra pas d'ailleurs, mais de nous-mêmes. Face aux besoins urgents dans nos communautés — accès à la santé, à l'éducation, à l'eau, à l'emploi — nous avons choisi d'agir autrement : en reliant les forces locales et la diaspora, autour de projets concrets et porteurs d'espoir. Chaque don, chaque partage, chaque projet sur Terra Biga est une brique posée pour construire l'Afrique de demain, par nous et pour nous.
+
+Tagline: "LÀ OÙ LES PROJETS PRENNENT VIE GRÂCE À NOUS TOUS."
+
+Contact: contact@terrabiga.com
+Address: Rue Teend Beogo, Ouagadougou, Burkina Faso
+Phone: +22602283893
+
+Navigation links: Rejoindre la communauté, Comment ca marche?, Investir avec TERRA BIGA?, Nos Engagements ESG
+
+Footer links: Accueil, Nos Projets, Actualités, Mentions légales, CGU, Politique d'utilisation, F.A.Q, Open Biz dev
+
+Main slogan on homepage: "Financement communautaire - Construisons ensemble l'Afrique de demain" - plus de 5 ans d'expérience dans l'accompagnement du financement.
+
+Projects on homepage: DIAPANGOU Construction de 6 classes (Education), FORAGE RAYONGO (Eau/Education), LYCÉE RAYONGO (Education), PHASE 1 TIBGA Maternité (Santé)
+
+--- MORE À PROPOS CONTENT ---
+
+Section: "LÀ OÙ LES PROJETS PRENNENT VIE GRÂCE À NOUS TOUS."
+Text: ...partagée, à la fierté d'agir ensemble. Terra Biga n'est pas qu'une plateforme de financement participatif. C'est une communauté d'acteurs engagés: des porteurs de projets locaux, des citoyens solidaires, des entrepreneurs, et une diaspora prête à soutenir des initiatives à impact.
+
+CTA: "Rejoindre la communauté"
+
+Section: "TERRA BIGA c'est la confiance, la transparence"
+Text: Chaque projet est sélectionné pour son impact humain, environnemental et collectif. Nous accompagnons les porteurs d'initiatives à chaque étape afin que leurs actions deviennent durables, transparentes et porteuses de sens. Notre démarche s'appuie sur trois piliers essentiels : la confiance, grâce à la transparence dans les collectes et le suivi public des projets ; la communauté, à travers la collaboration entre habitants, partenaires et diaspora ; et la durabilité, en privilégiant des actions à long terme, respectueuses de l'environnement et des valeurs locales.
+
+Section: "UNE PLATEFORME DÉDIÉE AU FINANCEMENT COMMUNAUTAIRE"
+Text: Notre stratégie est de mettre en relation des porteurs de projets de développement avec des investisseurs. Ceci afin de permettre de facilement mobiliser aussi bien des ressources locales, au travers des communautés, qu'à l'international avec la diaspora.
+
+Text: Grâce à notre plateforme TERRA BIGA, nous donnons aux communautés locales les moyens de lever des fonds pour leurs projets. Les souscriptions sont collectées et distribuées par l'intermédiaire d'un Fond géré et administré par une société de gestion.
+
+Tabs: Comment ca marche? | Investir avec TERRA BIGA? | Nos Engagements ESG
+
+Section: "Financement participatif en don:"
+- Les contributeurs font des dons financiers sans attente de retour financier direct.
+- Les porteurs de projets présentent leur initiative sur la plateforme en expliquant leurs objectifs, leurs besoins de financement et l'impact prévu.
+- Les dons peuvent être de toute taille, allant de petites contributions individuelles à des montants plus importants de la part de...
+
+--- ACTUALITÉS / NEWS ARTICLES ---
+1. Terra Invest présente Terra Biga au Village des Startups – Semaine du Numérique 2025 (26 NOV)
+2. Terra Biga : Le crowdfunding réinvente le financement communautaire au Burkina Faso (28 OCT)
+3. Terra Biga primée au Faso Digital 2025 : vers un nouveau modèle de financement communautaire en Afrique
+4. Terra Invest, parmi les 5 startups burkinabè sélectionnées par Orange Fab pour sa 4e saison
+5. POESAM25 : Terra Biga lauréat du 2e prix national
+6. Rencontre avec le Ministre de la Santé
+7. Rencontre avec Mme le Ministre de la Transition Digitale : cap sur le financement participatif
+8. Forum Gouvernement – Secteur privé – Groupe Banque mondiale : Terra Biga plaide pour le financement participatif
+9. #TibgaVidéoChallenge : Exprime ton engagement en vidéo !
+10. Lancement du projet de maternité et laboratoire à Tibga : Une initiative solidaire pour le développement durable
+
+Founder: BATIANA ISMAAIL FRANCK NACRO - Économiste et entrepreneur burkinabè, cofondateur et responsable de Terra Invest SA, une entreprise évoluant à l'intersection de l'immobilier et des technologies financières (Fintech).

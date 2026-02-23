@@ -94,3 +94,18 @@
 - [x] Créer une page À propos dédiée (/a-propos) séparée de la homepage
 - [x] Mettre à jour la navigation pour pointer vers /a-propos
 - [x] Supprimer la section À propos inline de la homepage
+
+## Phase 12: Restructuration majeure
+- [x] Rechercher infos À propos sur terrabiga.com
+- [x] Agrandir le logo dans le header et footer (deux versions fournies : icône seule + logo complet)
+- [x] Raccourcir la homepage : supprimer sections "Payez facilement" et "Contactez-nous"
+- [x] Modifier CTAs hero : "Achat Communautaire" → sous-texte "Découvrir Te Raga — Rejoignez un groupe d'achat" et "Financement Communautaire" → sous-texte "Lancez une cagnotte avec Ma Cagnotte"
+- [x] Nouvelle image hero reflétant communauté + modernité
+- [x] Créer page Contact séparée (/contact)
+- [x] Créer section News pour les articles
+- [x] Mettre à jour la page À propos avec les infos réelles de terrabiga.com
+- [x] Te Raga : ajouter proposition de groupe (suggérer d'autres groupes)
+- [x] Te Raga : partage produit du catalogue (même sans acheter) sur la fiche produit
+- [x] Te Raga : appel à rejoindre le groupe WhatsApp Terra Biga
+- [x] CagnotteCreate : déplacer la photo en fin de formulaire
+- [x] Mettre à jour navigation (Contact comme page séparée, News)
