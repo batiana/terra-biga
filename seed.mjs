@@ -22,7 +22,7 @@ async function seed() {
 
   // Groups for each product
   await db.execute(sql`INSERT IGNORE INTO \`groups\` (productId, currentMembers, maxMembers, status)
-    SELECT id, FLOOR(RAND() * 30) + 5, 50, 'forming' FROM products`);
+    SELECT id, FLOOR(RAND() * 30) + 5, 50, 'open' FROM products`);
 
   // Demo cagnottes
   await db.execute(sql`INSERT IGNORE INTO cagnottes (title, description, category, carrierType, targetAmount, currentAmount, contributorsCount, mobileMoneyNumber, status, creatorName, creatorPhone)

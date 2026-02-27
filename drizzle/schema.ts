@@ -71,7 +71,8 @@ export const groups = mysqlTable("groups", {
   productId: int("productId").notNull(),
   currentMembers: int("currentMembers").default(0).notNull(),
   maxMembers: int("maxMembers").default(50).notNull(),
-  status: mysqlEnum("status", ["forming", "full", "ordered", "ready", "completed"]).default("forming").notNull(),
+  // CYCLE: open → full → balance_pending → ordered → delivered → completed
+  status: mysqlEnum("status", ["open", "full", "balance_pending", "ordered", "delivered", "completed"]).default("open").notNull(),
   expiresAt: timestamp("expiresAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
@@ -118,20 +119,24 @@ export const identities = mysqlTable("identities", {
 export const cagnottes = mysqlTable("cagnottes", {
   id: int("id").autoincrement().primaryKey(),
   userId: int("userId"),
+  slug: varchar("slug", { length: 255 }).unique(),   // auto-généré à la création
   title: varchar("title", { length: 255 }).notNull(),
   description: text("description"),
   category: varchar("category", { length: 100 }).notNull(),
   carrierType: varchar("carrierType", { length: 50 }),
-  targetAmount: int("targetAmount").notNull(),
+  targetAmount: int("targetAmount"),                  // optionnel — null = "pas d'objectif fixé"
   currentAmount: int("currentAmount").default(0).notNull(),
   contributorsCount: int("contributorsCount").default(0).notNull(),
   mobileMoneyNumber: varchar("mobileMoneyNumber", { length: 20 }),
-  status: mysqlEnum("status", ["active", "pending_review", "completed", "rejected"]).default("active").notNull(),
+  status: mysqlEnum("status", ["active", "pending_review", "paused", "completed", "rejected"]).default("active").notNull(),
   rejectionReason: text("rejectionReason"),
   healthData: json("healthData"),
   ngoData: json("ngoData"),
   creatorPhone: varchar("creatorPhone", { length: 20 }),
   creatorName: varchar("creatorName", { length: 255 }),
+  // Freemium : horodatage du paiement des frais 500 FCFA (null = gratuite)
+  feesPaidAt: timestamp("feesPaidAt"),
+  feePaymentToken: varchar("feePaymentToken", { length: 255 }), // token Ligdicash
   expiresAt: timestamp("expiresAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
@@ -178,12 +183,13 @@ export const pointTransactions = mysqlTable("point_transactions", {
 // ─── Payments ────────────────────────────────────────────────────────
 export const payments = mysqlTable("payments", {
   id: int("id").autoincrement().primaryKey(),
-  type: mysqlEnum("type", ["advance", "remaining", "contribution", "donation"]).notNull(),
+  type: mysqlEnum("type", ["advance", "remaining", "contribution", "donation", "fee_cagnotte"]).notNull(),
   referenceId: int("referenceId"),
   amount: int("amount").notNull(),
   method: mysqlEnum("method", ["ussd_orange", "ussd_moov", "ligidicash"]).notNull(),
-  status: mysqlEnum("status", ["pending", "completed", "failed"]).default("pending").notNull(),
-  providerTransactionId: varchar("providerTransactionId", { length: 255 }),
+  status: mysqlEnum("status", ["pending", "completed", "failed", "cancelled"]).default("pending").notNull(),
+  providerTransactionId: varchar("providerTransactionId", { length: 255 }).unique(), // UNIQUE — idempotence
+  ligdicashToken: varchar("ligdicashToken", { length: 512 }), // token retourné par createInvoice
   phone: varchar("phone", { length: 20 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
@@ -196,6 +202,16 @@ export const notifications = mysqlTable("notifications", {
   title: varchar("title", { length: 255 }).notNull(),
   message: text("message"),
   isRead: boolean("isRead").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+// ─── Cagnotte Updates ───────────────────────────────────────────────
+export const cagnotteUpdates = mysqlTable("cagnotte_updates", {
+  id: int("id").autoincrement().primaryKey(),
+  cagnotteId: int("cagnotteId").notNull(),
+  userId: int("userId"),
+  content: text("content").notNull(),
+  imageUrl: text("imageUrl"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 

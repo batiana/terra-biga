@@ -208,11 +208,28 @@ export async function getCagnotteById(id: number) {
   return result[0] ?? undefined;
 }
 
+export async function getCagnotteBySlug(slug: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(cagnottes).where(eq(cagnottes.slug, slug)).limit(1);
+  return result[0] ?? undefined;
+}
+
+export async function countUserCagnottes(userId: number): Promise<number> {
+  const db = await getDb();
+  if (!db) return 0;
+  const result = await db.select({ count: sql<number>`COUNT(*)` })
+    .from(cagnottes)
+    .where(eq(cagnottes.userId, userId));
+  return Number(result[0]?.count ?? 0);
+}
+
 export async function createCagnotte(data: {
-  userId?: number; title: string; description?: string; category: string;
-  carrierType?: string; targetAmount: number; mobileMoneyNumber?: string;
+  userId?: number; slug?: string | null; title: string; description?: string; category: string;
+  carrierType?: string; targetAmount?: number | null; mobileMoneyNumber?: string;
   healthData?: any; ngoData?: any; creatorPhone?: string; creatorName?: string;
-  status?: "active" | "pending_review";
+  feesPaidAt?: Date; feePaymentToken?: string;
+  status?: "active" | "pending_review" | "paused" | "completed" | "rejected";
 }) {
   const db = await getDb();
   if (!db) return undefined;

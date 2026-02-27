@@ -16,6 +16,7 @@ import Admin from "./pages/Admin";
 import APropos from "./pages/APropos";
 import Contact from "./pages/Contact";
 import News from "./pages/News";
+import DonBigaConnect from "./pages/DonBigaConnect";
 
 function Router() {
   return (
@@ -28,14 +29,22 @@ function Router() {
       <Route path="/te-raga/paiement" component={PaymentPage} />
       <Route path="/te-raga/confirmation" component={ConfirmationPage} />
       <Route path="/te-raga/:slug" component={TeRagaProduct} />
-      {/* Ma Cagnotte — specific routes before :id wildcard */}
+      {/* Mam Cagnotte — routes cibles CDC V3.2 (+ anciens /ma-cagnotte conservés pour compat) */}
+      <Route path="/mam-cagnotte" component={MaCagnotte} />
+      <Route path="/mam-cagnotte/nouvelle" component={CagnotteCreate} />
+      <Route path="/mam-cagnotte/:id" component={CagnotteDetail} />
+      {/* Compatibilité ancienne URL /ma-cagnotte */}
       <Route path="/ma-cagnotte" component={MaCagnotte} />
       <Route path="/ma-cagnotte/creer" component={CagnotteCreate} />
       <Route path="/ma-cagnotte/:id" component={CagnotteDetail} />
+      {/* Page publique cagnotte par slug — ex: /c/aidons-fatimata-xk7p */}
+      <Route path="/c/:slug" component={CagnotteDetail} />
       {/* À propos, Contact & News */}
       <Route path="/a-propos" component={APropos} />
       <Route path="/contact" component={Contact} />
       <Route path="/actualites" component={News} />
+      {/* Don BIGA CONNECT — page dédiée pour les dons solidaires */}
+      <Route path="/don-biga-connect" component={DonBigaConnect} />
       {/* Profil */}
       <Route path="/profil" component={Profil} />
       {/* Admin */}
