@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "3bcc236b-968e-4c21-9ad3-248d6966e02c",
-  "prevId": "5298a0af-474d-467e-8128-560bce3e8d69",
+  "id": "695718f9-32f7-4be8-8eb6-f2e796e0dd7b",
+  "prevId": "3bcc236b-968e-4c21-9ad3-248d6966e02c",
   "tables": {
     "admin_config": {
       "name": "admin_config",
@@ -193,13 +193,6 @@
           "autoincrement": false,
           "default": 0
         },
-        "imageUrl": {
-          "name": "imageUrl",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
         "mobileMoneyNumber": {
           "name": "mobileMoneyNumber",
           "type": "varchar(20)",
@@ -209,19 +202,11 @@
         },
         "status": {
           "name": "status",
-          "type": "enum('active','pending_review','pending_payment','completed','paused','rejected')",
+          "type": "enum('active','pending_review','paused','completed','rejected')",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
           "default": "'active'"
-        },
-        "isPaused": {
-          "name": "isPaused",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": false
         },
         "rejectionReason": {
           "name": "rejectionReason",
@@ -253,6 +238,35 @@
         },
         "creatorName": {
           "name": "creatorName",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "imageUrl": {
+          "name": "imageUrl",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "isPaused": {
+          "name": "isPaused",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": false
+        },
+        "feesPaidAt": {
+          "name": "feesPaidAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "feePaymentToken": {
+          "name": "feePaymentToken",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false,
@@ -466,74 +480,6 @@
       "uniqueConstraints": {},
       "checkConstraint": {}
     },
-    "freemium_payments": {
-      "name": "freemium_payments",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "phone": {
-          "name": "phone",
-          "type": "varchar(20)",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "userId": {
-          "name": "userId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "paymentId": {
-          "name": "paymentId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "cagnotteId": {
-          "name": "cagnotteId",
-          "type": "int",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "status": {
-          "name": "status",
-          "type": "enum('pending','completed','failed')",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "'pending'"
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": "(now())"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {
-        "freemium_payments_id": {
-          "name": "freemium_payments_id",
-          "columns": [
-            "id"
-          ]
-        }
-      },
-      "uniqueConstraints": {},
-      "checkConstraint": {}
-    },
     "groups": {
       "name": "groups",
       "columns": {
@@ -569,11 +515,11 @@
         },
         "status": {
           "name": "status",
-          "type": "enum('forming','full','ordered','ready','completed')",
+          "type": "enum('open','full','balance_pending','ordered','delivered','completed')",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "'forming'"
+          "default": "'open'"
         },
         "expiresAt": {
           "name": "expiresAt",
@@ -931,6 +877,13 @@
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
           "autoincrement": false,
           "default": "(now())"
         }
@@ -987,6 +940,14 @@
           "autoincrement": false,
           "default": false
         },
+        "attempts": {
+          "name": "attempts",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
+        },
         "createdAt": {
           "name": "createdAt",
           "type": "timestamp",
@@ -1021,7 +982,7 @@
         },
         "type": {
           "name": "type",
-          "type": "enum('advance','remaining','contribution','donation','creation_fee')",
+          "type": "enum('advance','remaining','contribution','donation','fee_cagnotte')",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -1049,7 +1010,7 @@
         },
         "status": {
           "name": "status",
-          "type": "enum('pending','completed','failed')",
+          "type": "enum('pending','completed','failed','cancelled')",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
@@ -1062,9 +1023,9 @@
           "notNull": false,
           "autoincrement": false
         },
-        "phone": {
-          "name": "phone",
-          "type": "varchar(20)",
+        "ligdicashToken": {
+          "name": "ligdicashToken",
+          "type": "varchar(512)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -1072,6 +1033,13 @@
         "metadata": {
           "name": "metadata",
           "type": "json",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "phone": {
+          "name": "phone",
+          "type": "varchar(20)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -1095,7 +1063,14 @@
           ]
         }
       },
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "payments_providerTransactionId_unique": {
+          "name": "payments_providerTransactionId_unique",
+          "columns": [
+            "providerTransactionId"
+          ]
+        }
+      },
       "checkConstraint": {}
     },
     "point_transactions": {
