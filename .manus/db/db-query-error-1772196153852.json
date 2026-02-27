@@ -1,0 +1,8 @@
+{
+  "query": "UPDATE `groups` SET `status` = 'open' WHERE `status` = 'forming';",
+  "command": "mysql --batch --raw --column-names --default-character-set=utf8mb4 --host gateway04.us-east-1.prod.aws.tidbcloud.com --port 4000 --user 3tVbnofYJACXa3r.root --database GnGu2kngeMcrTYDv664Jt8 --execute UPDATE `groups` SET `status` = 'open' WHERE `status` = 'forming';",
+  "returncode": 1,
+  "logs": [
+    "ERROR 1265 (01000) at line 1: Data truncated for column '%s' at row %d"
+  ]
+}
