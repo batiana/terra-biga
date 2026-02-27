@@ -30,7 +30,7 @@ import {
   Clock, Users, TrendingUp, CheckCircle, AlertCircle
 } from "lucide-react";
 import { useState } from "react";
-import { CAGNOTTE_CATEGORIES } from "@shared/types";
+import { CAGNOTTE_CATEGORIES, type Cagnotte } from "@shared/types";
 import { getLoginUrl } from "@/const";
 
 function fmt(n: number) {
@@ -136,7 +136,7 @@ export default function DashboardPorteur() {
         <div className="lg:grid lg:grid-cols-[1fr_380px] lg:gap-6">
           {/* ── Cagnotte list ── */}
           <div className="space-y-3 mb-6 lg:mb-0">
-            {cagnottes.map(cagnotte => {
+            {cagnottes.map((cagnotte: Cagnotte) => {
               const catInfo = CAGNOTTE_CATEGORIES.find(c => c.key === cagnotte.category);
               const percent = cagnotte.targetAmount
                 ? Math.min(Math.round((cagnotte.currentAmount / cagnotte.targetAmount) * 100), 100)
@@ -166,7 +166,7 @@ export default function DashboardPorteur() {
                     <div className="flex items-center gap-1.5 shrink-0" onClick={e => e.stopPropagation()}>
                       {cagnotte.status === "active" && (
                         <button
-                          onClick={() => pauseMutation.mutate({ id: cagnotte.id })}
+                          onClick={() => pauseMutation.mutate({ cagnotteId: cagnotte.id })}
                           disabled={pauseMutation.isPending}
                           className="p-1.5 rounded-lg hover:bg-yellow-50 text-yellow-600 transition"
                           title="Mettre en pause"
@@ -176,7 +176,7 @@ export default function DashboardPorteur() {
                       )}
                       {cagnotte.status === "paused" && (
                         <button
-                          onClick={() => resumeMutation.mutate({ id: cagnotte.id })}
+                          onClick={() => resumeMutation.mutate({ cagnotteId: cagnotte.id })}
                           disabled={resumeMutation.isPending}
                           className="p-1.5 rounded-lg hover:bg-green-50 text-green-600 transition"
                           title="Reprendre"
@@ -186,7 +186,7 @@ export default function DashboardPorteur() {
                       )}
                       {(cagnotte.status === "active" || cagnotte.status === "paused") && (
                         <ConfirmClose
-                          onConfirm={() => closeMutation.mutate({ id: cagnotte.id })}
+                          onConfirm={() => closeMutation.mutate({ cagnotteId: cagnotte.id })}
                           isPending={closeMutation.isPending}
                         />
                       )}

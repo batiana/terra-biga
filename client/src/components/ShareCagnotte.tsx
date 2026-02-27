@@ -17,9 +17,10 @@ interface CagnotteShareData {
   title: string;
   description?: string | null;
   currentAmount: number;
-  targetAmount: number;
+  targetAmount?: number | null;  // FIX: nullable (objectif optionnel)
   contributorsCount: number;
   category?: string;
+  slug?: string | null;
 }
 
 interface ShareCagnotteProps {
@@ -87,11 +88,13 @@ function formatFCFA(n: number) {
 }
 
 function buildShareText(c: CagnotteShareData): string {
-  const percent =
-    c.targetAmount > 0
-      ? Math.min(Math.round((c.currentAmount / c.targetAmount) * 100), 100)
-      : 0;
-  return `🤝 Soutenez "${c.title}" sur Terra Biga !\n\n💰 ${formatFCFA(c.currentAmount)} collectés sur ${formatFCFA(c.targetAmount)} (${percent}%)\n👥 ${c.contributorsCount} contributeur${c.contributorsCount > 1 ? "s" : ""}\n\nChaque contribution compte !`;
+  const percent = c.targetAmount && c.targetAmount > 0
+    ? Math.min(Math.round((c.currentAmount / c.targetAmount) * 100), 100)
+    : 0;
+  const progressLine = c.targetAmount && c.targetAmount > 0
+    ? `💰 ${formatFCFA(c.currentAmount)} collectés sur ${formatFCFA(c.targetAmount)} (${percent}%)\n`
+    : `💰 ${formatFCFA(c.currentAmount)} collectés\n`;
+  return `🤝 Soutenez "${c.title}" sur Terra Biga !\n\n${progressLine}👥 ${c.contributorsCount} contributeur${c.contributorsCount > 1 ? "s" : ""}\n\nChaque contribution compte !`;
 }
 
 function getCagnotteUrl(id: number): string {
@@ -156,10 +159,9 @@ export default function ShareCagnotte({
     [shareUrl, shareText]
   );
 
-  const percent =
-    cagnotte.targetAmount > 0
-      ? Math.min(Math.round((cagnotte.currentAmount / cagnotte.targetAmount) * 100), 100)
-      : 0;
+  const percent = cagnotte.targetAmount && cagnotte.targetAmount > 0
+    ? Math.min(Math.round((cagnotte.currentAmount / cagnotte.targetAmount) * 100), 100)
+    : 0;
 
   /* ─── Trigger button ──────────────────────────────────────────── */
   const triggerButton =

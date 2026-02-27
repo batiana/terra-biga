@@ -123,9 +123,9 @@ export async function getActiveGroups(productId?: number) {
   const db = await getDb();
   if (!db) return [];
   if (productId) {
-    return db.select().from(groups).where(and(eq(groups.status, "forming"), eq(groups.productId, productId)));
+    return db.select().from(groups).where(and(eq(groups.status, "open"), eq(groups.productId, productId)));
   }
-  return db.select().from(groups).where(eq(groups.status, "forming"));
+  return db.select().from(groups).where(eq(groups.status, "open"));
 }
 
 export async function getGroupById(id: number) {

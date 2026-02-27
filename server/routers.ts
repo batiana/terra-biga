@@ -352,7 +352,7 @@ export const appRouter = router({
      */
     initiate: publicProcedure
       .input(z.object({
-        type: z.enum(["advance", "remaining", "contribution", "donation", "fee_cagnotte"]),
+        type: z.enum(["advance", "remaining", "contribution", "donation"]),
         referenceId: z.number().optional(),
         amount: z.number().min(100).max(5_000_000),
         method: z.enum(["ussd_orange", "ussd_moov", "ligidicash"]),
@@ -362,7 +362,7 @@ export const appRouter = router({
       }))
       .mutation(async ({ input }) => {
         const payment = await db.createPayment({
-          type: input.type,
+          type: input.type as "advance" | "remaining" | "contribution" | "donation",
           referenceId: input.referenceId,
           amount: input.amount,
           method: input.method,

@@ -56,20 +56,31 @@ export default function CagnotteCreate() {
 
   const handleSubmit = async () => {
     const amount = parseInt(targetAmount.replace(/\s/g, ""), 10);
-    if (!title || !category || !amount || amount < 1000) return;
+    if (!title || !category) return;
 
     const result = await createMutation.mutateAsync({
       title,
       description,
       category,
       carrierType,
-      targetAmount: amount,
+      targetAmount: amount && amount >= 1000 ? amount : undefined,
       mobileMoneyNumber,
       creatorName,
     });
 
-    if (result?.id) {
-      navigate(`/ma-cagnotte/${result.id}`);
+    // FIX: le router retourne soit requiresPayment (frais 500 FCFA) soit cagnotte+slug
+    if (result.requiresPayment) {
+      // Rediriger vers Ligdicash pour payer les frais
+      window.location.href = result.redirectUrl;
+      return;
+    }
+    // Création directe — naviguer vers la cagnotte
+    const id = result.cagnotte?.id;
+    const slug = result.slug;
+    if (slug) {
+      navigate(`/c/${slug}`);
+    } else if (id) {
+      navigate(`/ma-cagnotte/${id}`);
     }
   };
 

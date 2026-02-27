@@ -221,7 +221,7 @@ function CagnottesTab() {
           </div>
           <div className="text-sm mb-2">
             <span className="text-tb-green font-semibold">{formatFCFA(c.currentAmount)}</span>
-            <span className="text-muted-foreground"> / {formatFCFA(c.targetAmount)}</span>
+            <span className="text-muted-foreground"> / {c.targetAmount ? formatFCFA(c.targetAmount) : "Pas d'objectif"}</span>
           </div>
           {c.status === "pending_review" && (
             <div className="flex gap-2">

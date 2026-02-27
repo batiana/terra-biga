@@ -245,7 +245,7 @@ function MessageBubble({
             }
             return (
               <div key={i} className="prose prose-sm dark:prose-invert max-w-none">
-                <Markdown mode={isStreaming ? "typewriter" : "static"} typewriterSpeed={50}>
+                <Markdown mode={isStreaming ? "streaming" : "static"}>
                   {part.text}
                 </Markdown>
               </div>

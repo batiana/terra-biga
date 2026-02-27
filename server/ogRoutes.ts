@@ -19,31 +19,32 @@ export function registerOgRoutes(app: Router) {
         return res.status(404).json({ error: "Cagnotte not found" });
       }
 
-      const percent =
-        cagnotte.targetAmount > 0
-          ? Math.min(
-              Math.round(
-                (cagnotte.currentAmount / cagnotte.targetAmount) * 100
-              ),
-              100
-            )
-          : 0;
-
       const formatFCFA = (n: number) =>
         new Intl.NumberFormat("fr-FR").format(n) + " FCFA";
+
+      // FIX: targetAmount est nullable — guard avant division
+      const percent = cagnotte.targetAmount && cagnotte.targetAmount > 0
+        ? Math.min(
+            Math.round((cagnotte.currentAmount / cagnotte.targetAmount) * 100),
+            100
+          )
+        : 0;
+
+      const shareText = cagnotte.targetAmount && cagnotte.targetAmount > 0
+        ? `🤝 Soutenez "${cagnotte.title}" sur Terra Biga ! ${formatFCFA(cagnotte.currentAmount)} collectés sur ${formatFCFA(cagnotte.targetAmount)} (${percent}%). Chaque contribution compte !`
+        : `🤝 Soutenez "${cagnotte.title}" sur Terra Biga ! ${formatFCFA(cagnotte.currentAmount)} collectés — ${cagnotte.contributorsCount} contributeurs. Chaque FCFA compte !`;
 
       return res.json({
         id: cagnotte.id,
         title: cagnotte.title,
-        description:
-          cagnotte.description ||
-          `Cagnotte collective sur Terra Biga`,
+        description: cagnotte.description || `Cagnotte collective sur Terra Biga`,
         currentAmount: cagnotte.currentAmount,
-        targetAmount: cagnotte.targetAmount,
+        targetAmount: cagnotte.targetAmount,  // peut être null
         percent,
         contributorsCount: cagnotte.contributorsCount,
         category: cagnotte.category,
-        shareText: `🤝 Soutenez "${cagnotte.title}" sur Terra Biga ! ${formatFCFA(cagnotte.currentAmount)} collectés sur ${formatFCFA(cagnotte.targetAmount)} (${percent}%). Chaque contribution compte !`,
+        imageUrl: cagnotte.imageUrl ?? null,
+        shareText,
       });
     } catch (error) {
       console.error("[OG Route] Error:", error);

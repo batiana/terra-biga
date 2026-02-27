@@ -276,7 +276,7 @@ export default function CagnottePublic() {
 
             {/* Contribution form (appears inline on mobile when CTA clicked) */}
             <div ref={formRef}>
-              {step !== "idle" && step !== "confirmed" && !isPaused && (
+              {(step === "amount" || step === "details") && !isPaused && (
                 <ContributeForm
                   step={step}
                   setStep={setStep}
@@ -341,7 +341,7 @@ export default function CagnottePublic() {
               </div>
 
               {/* Inline form on desktop */}
-              {step !== "idle" && step !== "confirmed" && !isPaused && (
+              {(step === "amount" || step === "details") && !isPaused && (
                 <div className="bg-white border border-gray-100 rounded-2xl shadow-sm p-5">
                   <ContributeForm
                     step={step}

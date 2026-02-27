@@ -50,9 +50,11 @@ export default function CagnotteDetail() {
       const ogDesc = document.querySelector('meta[property="og:description"]');
       const twTitle = document.querySelector('meta[name="twitter:title"]');
       const twDesc = document.querySelector('meta[name="twitter:description"]');
-      const percent = cagnotte.targetAmount > 0
+      const percent = cagnotte.targetAmount && cagnotte.targetAmount > 0
         ? Math.min(Math.round((cagnotte.currentAmount / cagnotte.targetAmount) * 100), 100) : 0;
-      const desc = `${formatFCFA(cagnotte.currentAmount)} collectés sur ${formatFCFA(cagnotte.targetAmount)} (${percent}%) — ${cagnotte.contributorsCount} contributeurs. Chaque contribution compte !`;
+      const desc = cagnotte.targetAmount && cagnotte.targetAmount > 0
+        ? `${formatFCFA(cagnotte.currentAmount)} collectés sur ${formatFCFA(cagnotte.targetAmount)} (${percent}%) — ${cagnotte.contributorsCount} contributeurs. Chaque contribution compte !`
+        : `${formatFCFA(cagnotte.currentAmount)} collectés — ${cagnotte.contributorsCount} contributeurs. Chaque contribution compte !`;
       if (ogTitle) ogTitle.setAttribute("content", cagnotte.title + " — Terra Biga");
       if (ogDesc) ogDesc.setAttribute("content", desc);
       if (twTitle) twTitle.setAttribute("content", cagnotte.title + " — Terra Biga");
@@ -90,7 +92,7 @@ export default function CagnotteDetail() {
     );
   }
 
-  const percent = cagnotte.targetAmount > 0
+  const percent = cagnotte.targetAmount && cagnotte.targetAmount > 0
     ? Math.min(Math.round((cagnotte.currentAmount / cagnotte.targetAmount) * 100), 100)
     : 0;
   const catInfo = CAGNOTTE_CATEGORIES.find((c) => c.key === cagnotte.category);
@@ -179,7 +181,9 @@ export default function CagnotteDetail() {
           <div className="flex justify-between items-end mb-2">
             <div>
               <span className="text-2xl font-bold text-tb-green">{formatFCFA(cagnotte.currentAmount)}</span>
-              <span className="text-sm text-muted-foreground ml-2">sur {formatFCFA(cagnotte.targetAmount)}</span>
+              {cagnotte.targetAmount && cagnotte.targetAmount > 0 && (
+                <span className="text-sm text-muted-foreground ml-2">sur {formatFCFA(cagnotte.targetAmount)}</span>
+              )}
             </div>
             <span className="text-lg font-bold text-tb-green">{percent}%</span>
           </div>

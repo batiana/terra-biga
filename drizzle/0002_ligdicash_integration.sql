@@ -9,7 +9,7 @@
 
 -- Ajout du token JWT Ligdicash (clé de recherche pour les webhooks)
 ALTER TABLE `payments`
-  ADD COLUMN `invoiceToken` VARCHAR(512) NULL AFTER `status`;
+  ADD COLUMN `ligdicashToken` VARCHAR(512) NULL AFTER `status`;
 
 -- Ajout de l'horodatage de confirmation côté Ligdicash
 ALTER TABLE `payments`
@@ -27,9 +27,9 @@ UPDATE `payments`
 ALTER TABLE `payments`
   ADD UNIQUE INDEX `uq_payments_provider_tx_id` (`providerTransactionId`);
 
--- Index sur invoiceToken pour recherche rapide dans le webhook handler
-CREATE INDEX `idx_payments_invoice_token`
-  ON `payments` (`invoiceToken`(255));
+-- Index sur ligdicashToken pour recherche rapide dans le webhook handler
+CREATE INDEX `idx_payments_ligdicash_token`
+  ON `payments` (`ligdicashToken`(255));
 
 -- Index sur status pour les requêtes admin et monitoring
 CREATE INDEX `idx_payments_status`
@@ -97,3 +97,33 @@ CREATE TABLE IF NOT EXISTS `cagnotte_updates` (
 -- FIN DE LA MIGRATION
 -- Pour appliquer : pnpm run db:push (si Drizzle) ou exécuter manuellement
 -- ============================================================================
+
+-- ────────────────────────────────────────────────────────────────────────────
+-- AJOUTS V3.3 (corrections TypeScript — audit complet)
+-- ────────────────────────────────────────────────────────────────────────────
+
+-- cagnottes.imageUrl — photo de la cagnotte
+ALTER TABLE `cagnottes`
+  ADD COLUMN `imageUrl` TEXT NULL AFTER `creatorName`;
+
+-- cagnottes.isPaused — alias boolean du statut paused
+ALTER TABLE `cagnottes`
+  ADD COLUMN `isPaused` BOOLEAN NOT NULL DEFAULT FALSE AFTER `imageUrl`;
+
+-- payments.metadata — données JSON libres (ex: pendingCagnotte pour fee_cagnotte)
+ALTER TABLE `payments`
+  ADD COLUMN `metadata` JSON NULL AFTER `ligdicashToken`;
+
+-- otp_codes.attempts — compteur de mauvais codes
+ALTER TABLE `otp_codes`
+  ADD COLUMN `attempts` INT NOT NULL DEFAULT 0 AFTER `used`;
+
+-- TABLE otp_attempts (rate limiting par téléphone + fenêtre glissante)
+CREATE TABLE IF NOT EXISTS `otp_attempts` (
+  `id`          INT AUTO_INCREMENT PRIMARY KEY,
+  `phone`       VARCHAR(20) NOT NULL,
+  `attempts`    INT NOT NULL DEFAULT 1,
+  `windowStart` TIMESTAMP NOT NULL,
+  `createdAt`   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX `idx_otp_attempts_phone` (`phone`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

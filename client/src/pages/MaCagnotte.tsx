@@ -93,7 +93,7 @@ export default function MaCagnotte() {
         ) : filtered.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map((cagnotte) => {
-              const percent = cagnotte.targetAmount > 0
+              const percent = cagnotte.targetAmount && cagnotte.targetAmount > 0
                 ? Math.min(Math.round((cagnotte.currentAmount / cagnotte.targetAmount) * 100), 100)
                 : 0;
               const catInfo = CAGNOTTE_CATEGORIES.find((c) => c.key === cagnotte.category);
@@ -118,7 +118,7 @@ export default function MaCagnotte() {
                     </div>
                     <Progress value={percent} className="h-2.5 mb-1" />
                     <p className="text-xs text-muted-foreground mb-3">
-                      Objectif : {formatFCFA(cagnotte.targetAmount)} &middot; {cagnotte.contributorsCount} contributeurs
+                      Objectif : {formatFCFA(cagnotte.targetAmount ?? 0)} &middot; {cagnotte.contributorsCount} contributeurs
                     </p>
                     <Link href={`/ma-cagnotte/${cagnotte.id}`}>
                       <Button className="w-full bg-tb-blue hover:bg-tb-blue/90 text-white rounded-xl h-10 gap-2 text-sm">

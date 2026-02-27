@@ -43,6 +43,16 @@ export const otpCodes = mysqlTable("otp_codes", {
   code: varchar("code", { length: 6 }).notNull(),
   expiresAt: timestamp("expiresAt").notNull(),
   used: boolean("used").default(false).notNull(),
+  attempts: int("attempts").default(0).notNull(), // wrong-code attempts
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+// ─── OTP Attempts (rate limiting by phone+window) ────────────────────
+export const otpAttempts = mysqlTable("otp_attempts", {
+  id: int("id").autoincrement().primaryKey(),
+  phone: varchar("phone", { length: 20 }).notNull(),
+  attempts: int("attempts").default(1).notNull(),
+  windowStart: timestamp("windowStart").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
@@ -134,6 +144,8 @@ export const cagnottes = mysqlTable("cagnottes", {
   ngoData: json("ngoData"),
   creatorPhone: varchar("creatorPhone", { length: 20 }),
   creatorName: varchar("creatorName", { length: 255 }),
+  imageUrl: text("imageUrl"),                         // photo principale de la cagnotte
+  isPaused: boolean("isPaused").default(false).notNull(), // alias pratique pour status=paused
   // Freemium : horodatage du paiement des frais 500 FCFA (null = gratuite)
   feesPaidAt: timestamp("feesPaidAt"),
   feePaymentToken: varchar("feePaymentToken", { length: 255 }), // token Ligdicash
@@ -190,6 +202,7 @@ export const payments = mysqlTable("payments", {
   status: mysqlEnum("status", ["pending", "completed", "failed", "cancelled"]).default("pending").notNull(),
   providerTransactionId: varchar("providerTransactionId", { length: 255 }).unique(), // UNIQUE — idempotence
   ligdicashToken: varchar("ligdicashToken", { length: 512 }), // token retourné par createInvoice
+  metadata: json("metadata"),                       // données arbitraires (pendingCagnotte, etc.)
   phone: varchar("phone", { length: 20 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });

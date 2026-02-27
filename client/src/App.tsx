@@ -17,6 +17,9 @@ import APropos from "./pages/APropos";
 import Contact from "./pages/Contact";
 import News from "./pages/News";
 import DonBigaConnect from "./pages/DonBigaConnect";
+import CagnottePublic from "./pages/CagnottePublic";
+import DashboardPorteur from "./pages/DashboardPorteur";
+import Login from "./pages/Login";
 
 function Router() {
   return (
@@ -45,6 +48,13 @@ function Router() {
       <Route path="/actualites" component={News} />
       {/* Don BIGA CONNECT — page dédiée pour les dons solidaires */}
       <Route path="/don-biga-connect" component={DonBigaConnect} />
+      {/* Dashboard porteur de cagnotte */}
+      <Route path="/dashboard" component={DashboardPorteur} />
+      <Route path="/ma-cagnotte/dashboard" component={DashboardPorteur} />
+      {/* Page publique cagnotte par ID (rendu riche) */}
+      <Route path="/cagnotte/:id" component={CagnottePublic} />
+      {/* Auth */}
+      <Route path="/connexion" component={Login} />
       {/* Profil */}
       <Route path="/profil" component={Profil} />
       {/* Admin */}
