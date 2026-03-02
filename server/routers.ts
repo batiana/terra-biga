@@ -539,7 +539,169 @@ export const appRouter = router({
         await db.addPointTransaction({ userId: input.userId, action: "admin_adjustment", points: input.points, description: input.description });
         return { success: true };
       }),
+    proposals: adminProcedure
+      .input(z.object({ limit: z.number().default(50), offset: z.number().default(0) }).optional())
+      .query(async ({ input }) => {
+        const dbInst = await getDb();
+        if (!dbInst) return [];
+        return dbInst.select().from(groups).where(eq(groups.status, "open")).limit(input?.limit ?? 50).offset(input?.offset ?? 0);
+      }),
+    organizations: adminProcedure
+      .input(z.object({ limit: z.number().default(50), offset: z.number().default(0) }).optional())
+      .query(async ({ input }) => {
+        const dbInst = await getDb();
+        if (!dbInst) return [];
+        return dbInst.select().from(cagnottes).where(eq(cagnottes.category, "association_ong")).limit(input?.limit ?? 50).offset(input?.offset ?? 0);
+      }),
+    projects: adminProcedure
+      .input(z.object({ limit: z.number().default(50), offset: z.number().default(0) }).optional())
+      .query(async ({ input }) => {
+        const dbInst = await getDb();
+        if (!dbInst) return [];
+        return dbInst.select().from(cagnottes).where(eq(cagnottes.category, "projet")).limit(input?.limit ?? 50).offset(input?.offset ?? 0);
+      }),
+    projectById: adminProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input }) => {
+        const dbInst = await getDb();
+        if (!dbInst) return null;
+        const result = await dbInst.select().from(cagnottes).where(eq(cagnottes.id, input.id));
+        return result[0] || null;
+      }),
+    approveProject: adminProcedure
+      .input(z.object({ projectId: z.number() }))
+      .mutation(async ({ input }) => {
+        const dbInst = await getDb();
+        if (!dbInst) return;
+        await dbInst.update(cagnottes).set({ status: "active" }).where(eq(cagnottes.id, input.projectId));
+        return { success: true };
+      }),
+    rejectProject: adminProcedure
+      .input(z.object({ projectId: z.number(), reason: z.string() }))
+      .mutation(async ({ input }) => {
+        const dbInst = await getDb();
+        if (!dbInst) return;
+        await dbInst.update(cagnottes).set({ status: "rejected", rejectionReason: input.reason }).where(eq(cagnottes.id, input.projectId));
+        return { success: true };
+      }),
+  }),
+
+  // ─── Cagnottes Extended ──────────────────────────────────────────
+  cagnottes: router({
+    list: publicProcedure
+      .input(z.object({ limit: z.number().default(10), offset: z.number().default(0) }).optional())
+      .query(async ({ input }) => {
+        const dbInst = await getDb();
+        if (!dbInst) return [];
+        return dbInst.select().from(cagnottes).where(eq(cagnottes.status, "active")).limit(input?.limit ?? 10).offset(input?.offset ?? 0);
+      }),
+    mine: protectedProcedure
+      .query(async ({ ctx }) => {
+        const dbInst = await getDb();
+        if (!dbInst || !ctx.user) return [];
+        return dbInst.select().from(cagnottes).where(eq(cagnottes.userId, ctx.user.id));
+      }),
+    pause: protectedProcedure
+      .input(z.object({ cagnotteId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const dbInst = await getDb();
+        if (!dbInst || !ctx.user) return;
+        await dbInst.update(cagnottes).set({ isPaused: true }).where(and(eq(cagnottes.id, input.cagnotteId), eq(cagnottes.userId, ctx.user.id)));
+        return { success: true };
+      }),
+    resume: protectedProcedure
+      .input(z.object({ cagnotteId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const dbInst = await getDb();
+        if (!dbInst || !ctx.user) return;
+        await dbInst.update(cagnottes).set({ isPaused: false }).where(and(eq(cagnottes.id, input.cagnotteId), eq(cagnottes.userId, ctx.user.id)));
+        return { success: true };
+      }),
+    close: protectedProcedure
+      .input(z.object({ cagnotteId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const dbInst = await getDb();
+        if (!dbInst || !ctx.user) return;
+        await dbInst.update(cagnottes).set({ status: "completed" }).where(and(eq(cagnottes.id, input.cagnotteId), eq(cagnottes.userId, ctx.user.id)));
+        return { success: true };
+      }),
+    updates: protectedProcedure
+      .input(z.object({ cagnotteId: z.number() }))
+      .query(async ({ input }) => {
+        const dbInst = await getDb();
+        if (!dbInst) return [];
+        return dbInst.select().from(cagnotteUpdates).where(eq(cagnotteUpdates.cagnotteId, input.cagnotteId)).orderBy(desc(cagnotteUpdates.createdAt));
+      }),
+    publishUpdate: protectedProcedure
+      .input(z.object({ cagnotteId: z.number(), title: z.string(), content: z.string() }))
+      .mutation(async ({ ctx, input }) => {
+        const dbInst = await getDb();
+        if (!dbInst || !ctx.user) return;
+        const result = await dbInst.insert(cagnotteUpdates).values({ cagnotteId: input.cagnotteId, title: input.title, content: input.content });
+        return { success: true, updateId: result.insertId };
+      }),
+  }),
+
+  // ─── Contributions ──────────────────────────────────────────────────
+  contributions: router({
+    mine: protectedProcedure
+      .query(async ({ ctx }) => {
+        const dbInst = await getDb();
+        if (!dbInst || !ctx.user) return [];
+        return dbInst.select().from(contributions).where(eq(contributions.contributorId, ctx.user.id));
+      }),
+  }),
+
+  // ─── Groups Extended ─────────────────────────────────────────────
+  groups: router({
+    byId: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .query(async ({ input }) => {
+        const dbInst = await getDb();
+        if (!dbInst) return null;
+        const result = await dbInst.select().from(groups).where(eq(groups.id, input.id));
+        return result[0] || null;
+      }),
+    propose: protectedProcedure
+      .input(z.object({
+        productId: z.number(),
+        groupName: z.string(),
+        targetMembers: z.number(),
+        deadline: z.date(),
+        description: z.string().optional(),
+        contactPhone: z.string(),
+        contactName: z.string(),
+      }))
+      .mutation(async ({ ctx, input }) => {
+        const dbInst = await getDb();
+        if (!dbInst || !ctx.user) return;
+        const result = await dbInst.insert(groups).values({
+          productId: input.productId,
+          name: input.groupName,
+          targetMembers: input.targetMembers,
+          deadline: input.deadline,
+          description: input.description,
+          createdBy: ctx.user.id,
+          status: "open",
+        });
+        return { success: true, groupId: result.insertId };
+      }),
+    join: protectedProcedure
+      .input(z.object({ groupId: z.number() }))
+      .mutation(async ({ ctx, input }) => {
+        const dbInst = await getDb();
+        if (!dbInst || !ctx.user) return;
+        const result = await dbInst.insert(orders).values({
+          groupId: input.groupId,
+          userId: ctx.user.id,
+          collectionStatus: "waiting",
+          paymentStatus: "pending",
+        });
+        return { success: true, orderId: result.insertId };
+      }),
   }),
 });
+
+export type AppRouter = typeof appRouter;
 
 export type AppRouter = typeof appRouter;
