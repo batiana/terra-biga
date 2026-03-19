@@ -82,7 +82,12 @@ export default function Home() {
   return (
     <Layout>
       {/* ─── Hero Section ────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-tb-green/10 via-white to-tb-blue/10">
+      <section className="relative overflow-hidden bg-gradient-to-br from-tb-green/10 via-white to-tb-blue/10" style={{
+        backgroundImage: `linear-gradient(to right, rgba(11,22,40,0.75) 50%, transparent 100%), url('${HERO_IMG}')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed',
+      }}>
         <div className="container py-12 sm:py-20 lg:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="space-y-6">
