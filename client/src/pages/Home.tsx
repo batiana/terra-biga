@@ -102,24 +102,21 @@ export default function Home() {
                 </h2>
               </div>
 
-              {/* Subheading */}
-              <p className="text-base text-muted-foreground max-w-lg leading-relaxed">
-                Économisez grâce à l'achat groupé. Financez vos projets de vie avec la force du collectif. Partagez, cotisez, réalisez.
-              </p>
+
 
               {/* Stats */}
               <div className="grid grid-cols-3 gap-4 pt-4">
                 <div className="space-y-1">
-                  <p className="text-2xl sm:text-3xl font-bold text-tb-green">1250+</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-tb-green">600+</p>
+                  <p className="text-xs text-muted-foreground">Contributions</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-2xl sm:text-3xl font-bold text-tb-orange">9M</p>
+                  <p className="text-xs text-muted-foreground">FCFA mobilisés</p>
+                </div>
+                <div className="space-y-1">
+                  <p className="text-2xl sm:text-3xl font-bold text-tb-blue">1250+</p>
                   <p className="text-xs text-muted-foreground">Membres actifs</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-2xl sm:text-3xl font-bold text-tb-orange">30%</p>
-                  <p className="text-xs text-muted-foreground">D'économie moyenne</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-2xl sm:text-3xl font-bold text-tb-blue">8.5M</p>
-                  <p className="text-xs text-muted-foreground">FCFA économisés</p>
                 </div>
               </div>
 
