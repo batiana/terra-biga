@@ -109,22 +109,6 @@ export default function Home() {
 
 
 
-              {/* Stats */}
-              <div className="grid grid-cols-3 gap-4 pt-4">
-                <div className="space-y-1">
-                  <p className="text-2xl sm:text-3xl font-bold text-white">600+</p>
-                  <p className="text-xs text-gray-300">Contributions</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-2xl sm:text-3xl font-bold text-white">9M</p>
-                  <p className="text-xs text-gray-300">FCFA mobilisés</p>
-                </div>
-                <div className="space-y-1">
-                  <p className="text-2xl sm:text-3xl font-bold text-white">1250+</p>
-                  <p className="text-xs text-gray-300">Membres actifs</p>
-                </div>
-              </div>
-
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <Link href="/te-raga">
@@ -163,6 +147,26 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Stats Bar ────────────────────────────────────────────────── */}
+      <section className="bg-white border-t border-gray-100">
+        <div className="container py-8 sm:py-12">
+          <div className="grid grid-cols-3 gap-8 sm:gap-12">
+            <div className="text-center">
+              <p className="text-3xl sm:text-4xl font-bold text-tb-green mb-2">600+</p>
+              <p className="text-sm sm:text-base text-gray-600">Contributions</p>
+            </div>
+            <div className="text-center">
+              <p className="text-3xl sm:text-4xl font-bold text-tb-green mb-2">9M</p>
+              <p className="text-sm sm:text-base text-gray-600">FCFA mobilisés</p>
+            </div>
+            <div className="text-center">
+              <p className="text-3xl sm:text-4xl font-bold text-tb-green mb-2">1250+</p>
+              <p className="text-sm sm:text-base text-gray-600">Membres actifs</p>
             </div>
           </div>
         </div>

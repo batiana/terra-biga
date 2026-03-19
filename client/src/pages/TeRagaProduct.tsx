@@ -215,6 +215,57 @@ export default function TeRagaProduct() {
               </div>
             )}
 
+            {/* Pricing Tiers Widget */}
+            {group && (
+              <div className="tb-card mb-6">
+                <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                  <ShoppingCart className="w-4 h-4 text-tb-orange" />
+                  Prix dégressifs par paliers
+                </h3>
+                <div className="space-y-2">
+                  {[
+                    { members: 10, price: product.groupPrice },
+                    { members: 25, price: Math.round(product.groupPrice * 0.95) },
+                    { members: 50, price: Math.round(product.groupPrice * 0.90) },
+                  ].map((tier, idx) => (
+                    <div
+                      key={idx}
+                      className={`p-3 rounded-lg border-2 transition-all ${
+                        group.currentMembers >= tier.members
+                          ? 'border-tb-green bg-tb-green/5'
+                          : 'border-gray-200 bg-gray-50'
+                      }`}
+                    >
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm font-medium text-foreground">
+                          {tier.members}+ membres
+                        </span>
+                        <span className={`font-bold ${
+                          group.currentMembers >= tier.members ? 'text-tb-green' : 'text-gray-500'
+                        }`}>
+                          {formatFCFA(tier.price)}
+                        </span>
+                      </div>
+                      {group.currentMembers >= tier.members && (
+                        <p className="text-xs text-tb-green mt-1">✓ Palier atteint</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <a
+                  href={`https://wa.me/?text=${encodeURIComponent(
+                    `Rejoignez-moi pour ${product.name} sur Terra Biga ! Moins on est nombreux, moins ça coûte. ${shareUrl}`
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full mt-3 px-4 py-2 bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#25D366] rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Invitez des amis pour faire baisser le prix
+                </a>
+              </div>
+            )}
+
             {/* Collection Point */}
             <div className="tb-card mb-6">
               <h3 className="font-semibold text-sm mb-1 flex items-center gap-2">
