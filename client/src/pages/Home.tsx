@@ -3,7 +3,7 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import {
   ShoppingCart, PiggyBank, Users, TrendingDown, ArrowRight,
-  Star, Newspaper, ExternalLink, MessageCircle
+  Star, Newspaper, ExternalLink, MessageCircle, CheckCircle2, Zap, Heart
 } from "lucide-react";
 
 const HERO_IMG = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663373135176/SeumZExYlmhgMMDS.jpg";
@@ -51,61 +51,112 @@ const NEWS = [
   },
 ];
 
+const HOW_IT_WORKS = [
+  {
+    step: 1,
+    title: "Rejoignez ou créez",
+    description: "Adhérez à un groupe d'achat ou lancez une cagnotte en quelques clics",
+    icon: Users,
+  },
+  {
+    step: 2,
+    title: "Partagez avec vos proches",
+    description: "Invitez vos amis et famille via WhatsApp, Facebook ou lien direct",
+    icon: MessageCircle,
+  },
+  {
+    step: 3,
+    title: "Économisez ensemble",
+    description: "Bénéficiez de tarifs réduits ou recevez les contributions",
+    icon: TrendingDown,
+  },
+  {
+    step: 4,
+    title: "Retirez sur Mobile Money",
+    description: "Accédez à votre argent directement sur votre compte Orange Money",
+    icon: Zap,
+  },
+];
+
 export default function Home() {
   return (
     <Layout>
-      {/* ─── Hero ─────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-white via-tb-green/5 to-tb-blue/5">
-        <div className="container py-10 sm:py-16 lg:py-20">
+      {/* ─── Hero Section ────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-tb-green/10 via-white to-tb-blue/10">
+        <div className="container py-12 sm:py-20 lg:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 bg-tb-green/10 text-tb-green text-xs font-semibold px-3 py-1.5 rounded-full mb-4">
+            <div className="space-y-6">
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 bg-tb-green/10 text-tb-green text-xs font-semibold px-3 py-1.5 rounded-full">
                 <Star className="w-3.5 h-3.5" />
                 Lauréate Faso Digital & POESAM
               </div>
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground leading-tight mb-4">
-                La première plateforme communautaire d'achat groupé et de cagnotte collective{" "}
-                <span className="text-tb-green">en Afrique de l'Ouest</span>
-              </h1>
-              <p className="text-base sm:text-lg text-muted-foreground mb-6 max-w-lg leading-relaxed">
-                Ensemble, on va plus loin. Économisez grâce à l'achat groupé et financez vos projets de vie avec la force du collectif.
+
+              {/* Main Headline */}
+              <div className="space-y-4">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+                  Ensemble, on va plus loin.
+                </h1>
+                <h2 className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl">
+                  Première plateforme communautaire d'achat groupé et de financement collectif au Burkina Faso.
+                </h2>
+              </div>
+
+              {/* Subheading */}
+              <p className="text-base text-muted-foreground max-w-lg leading-relaxed">
+                Économisez grâce à l'achat groupé. Financez vos projets de vie avec la force du collectif. Partagez, cotisez, réalisez.
               </p>
 
-              {/* Stats inline */}
-              <div className="flex flex-wrap gap-4 sm:gap-6 mb-6">
-                <div>
-                  <p className="text-2xl font-bold text-tb-green">1250+</p>
-                  <p className="text-xs text-muted-foreground">Membres</p>
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-4 pt-4">
+                <div className="space-y-1">
+                  <p className="text-2xl sm:text-3xl font-bold text-tb-green">1250+</p>
+                  <p className="text-xs text-muted-foreground">Membres actifs</p>
                 </div>
-                <div>
-                  <p className="text-2xl font-bold text-tb-orange">30%</p>
-                  <p className="text-xs text-muted-foreground">D'économie</p>
+                <div className="space-y-1">
+                  <p className="text-2xl sm:text-3xl font-bold text-tb-orange">30%</p>
+                  <p className="text-xs text-muted-foreground">D'économie moyenne</p>
                 </div>
-                <div>
-                  <p className="text-2xl font-bold text-tb-blue">8.5M</p>
+                <div className="space-y-1">
+                  <p className="text-2xl sm:text-3xl font-bold text-tb-blue">8.5M</p>
                   <p className="text-xs text-muted-foreground">FCFA économisés</p>
                 </div>
               </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                <Link href="/te-raga">
+                  <Button className="w-full sm:w-auto bg-tb-green hover:bg-tb-green/90 text-white h-12 rounded-xl text-base gap-2 font-semibold px-6">
+                    Découvrir Te Raga
+                    <ArrowRight className="w-5 h-5" />
+                  </Button>
+                </Link>
+                <Link href="/ma-cagnotte/creer">
+                  <Button variant="outline" className="w-full sm:w-auto h-12 rounded-xl text-base font-semibold px-6">
+                    Créer une cagnotte
+                  </Button>
+                </Link>
+              </div>
             </div>
 
-            {/* Hero image */}
-            <div className="relative">
-              <div className="rounded-2xl overflow-hidden shadow-xl">
+            {/* Hero Image */}
+            <div className="relative hidden lg:block">
+              <div className="rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src={HERO_IMG}
                   alt="Communauté Terra Biga"
-                  className="w-full h-64 sm:h-80 lg:h-96 object-cover"
+                  className="w-full h-96 object-cover"
                   loading="eager"
                 />
               </div>
-              {/* Floating savings badge */}
-              <div className="absolute -bottom-4 -left-2 sm:left-4 bg-white rounded-xl shadow-lg p-3 border border-border">
-                <div className="flex items-center gap-2">
-                  <div className="w-9 h-9 rounded-full bg-tb-green/10 flex items-center justify-center">
+              {/* Floating Badge */}
+              <div className="absolute -bottom-6 -left-4 sm:left-4 bg-white rounded-xl shadow-lg p-4 border border-border max-w-xs">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-tb-green/10 flex items-center justify-center flex-shrink-0">
                     <TrendingDown className="w-5 h-5 text-tb-green" />
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground">Économie moyenne</p>
+                    <p className="text-xs text-muted-foreground font-medium">Économie moyenne</p>
                     <p className="text-sm font-bold text-tb-green">-30% sur vos achats</p>
                   </div>
                 </div>
@@ -115,80 +166,94 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Two Pillars ──────────────────────────────────────── */}
-      <section className="py-10 sm:py-16 bg-white">
+      {/* ─── Two Services Section ─────────────────────────────────── */}
+      <section className="py-16 sm:py-24 bg-white">
         <div className="container">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-bold text-foreground mb-2">Nos deux services</h2>
-            <p className="text-muted-foreground max-w-lg mx-auto">
+          <div className="text-center mb-12 space-y-3">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Nos deux services</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Deux solutions complémentaires pour le pouvoir d'achat et la solidarité communautaire.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {/* Pillar 1: Achat Communautaire */}
-            <div className="rounded-2xl border-2 border-tb-green/20 bg-gradient-to-b from-tb-green/5 to-white p-6 sm:p-8 flex flex-col">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-tb-green/10 flex items-center justify-center">
-                  <ShoppingCart className="w-6 h-6 text-tb-green" />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Service 1: Te Raga */}
+            <div className="rounded-2xl border-2 border-tb-green/20 bg-gradient-to-b from-tb-green/5 to-white p-8 flex flex-col hover:shadow-lg transition-shadow">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="w-14 h-14 rounded-xl bg-tb-green/10 flex items-center justify-center flex-shrink-0">
+                  <ShoppingCart className="w-7 h-7 text-tb-green" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-foreground">Achat Communautaire</h3>
-                  <p className="text-xs text-tb-green font-medium">Te Raga — "Viens acheter" en Mooré</p>
+                  <h3 className="text-2xl font-bold text-foreground">Te Raga</h3>
+                  <p className="text-sm text-tb-green font-medium">"Viens acheter" en Mooré</p>
                 </div>
               </div>
 
-              <p className="text-sm text-muted-foreground mb-4 leading-relaxed flex-1">
-                Rejoignez un groupe d'achat pour bénéficier de prix réduits sur des produits essentiels : kits solaires, fournitures scolaires, électronique, alimentaire. Plus on est nombreux, plus on économise !
+              <p className="text-base text-muted-foreground mb-6 leading-relaxed flex-1">
+                Rejoignez des groupes d'achat pour bénéficier de prix réduits sur des produits essentiels : kits solaires, fournitures scolaires, électronique, alimentaire.
               </p>
 
-              <div className="bg-tb-green/5 rounded-xl p-4 mb-5">
-                <div className="flex items-center gap-2 mb-2">
-                  <TrendingDown className="w-4 h-4 text-tb-green" />
-                  <span className="text-sm font-semibold text-tb-green">Économie garantie</span>
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-tb-green flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-sm text-foreground">Économies garanties</p>
+                    <p className="text-xs text-muted-foreground">Jusqu'à 30% d'économie grâce à la négociation collective</p>
+                  </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  Jusqu'à 30% d'économie grâce à la négociation collective. Paiement en 2 étapes : 10% d'avance, 90% à la collecte.
-                </p>
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-tb-green flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-sm text-foreground">Paiement flexible</p>
+                    <p className="text-xs text-muted-foreground">10% d'avance, 90% à la collecte</p>
+                  </div>
+                </div>
               </div>
 
               <Link href="/te-raga">
-                <Button className="w-full bg-tb-green hover:bg-tb-green/90 text-white h-12 rounded-xl text-base gap-2 font-semibold">
-                  Découvrir Te Raga — Rejoindre un groupe d'achat
+                <Button className="w-full bg-tb-green hover:bg-tb-green/90 text-white h-12 rounded-xl font-semibold gap-2">
+                  Rejoindre un groupe d'achat
                   <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
             </div>
 
-            {/* Pillar 2: Financement Communautaire */}
-            <div className="rounded-2xl border-2 border-tb-blue/20 bg-gradient-to-b from-tb-blue/5 to-white p-6 sm:p-8 flex flex-col">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-tb-blue/10 flex items-center justify-center">
-                  <PiggyBank className="w-6 h-6 text-tb-blue" />
+            {/* Service 2: Ma Cagnotte */}
+            <div className="rounded-2xl border-2 border-tb-blue/20 bg-gradient-to-b from-tb-blue/5 to-white p-8 flex flex-col hover:shadow-lg transition-shadow">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="w-14 h-14 rounded-xl bg-tb-blue/10 flex items-center justify-center flex-shrink-0">
+                  <Heart className="w-7 h-7 text-tb-blue" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-foreground">Financement Communautaire</h3>
-                  <p className="text-xs text-tb-blue font-medium">Ma Cagnotte — Cotiser ensemble</p>
+                  <h3 className="text-2xl font-bold text-foreground">Ma Cagnotte</h3>
+                  <p className="text-sm text-tb-blue font-medium">Financement collectif</p>
                 </div>
               </div>
 
-              <p className="text-sm text-muted-foreground mb-4 leading-relaxed flex-1">
-                Créez une cagnotte pour financer un projet de vie : mariage, santé, éducation, événement. Partagez le lien avec vos proches et recevez les contributions sur votre Mobile Money.
+              <p className="text-base text-muted-foreground mb-6 leading-relaxed flex-1">
+                Créez une cagnotte pour financer vos projets de vie : mariage, santé, éducation, événement. Partagez avec vos proches et recevez les contributions directement.
               </p>
 
-              <div className="bg-tb-blue/5 rounded-xl p-4 mb-5">
-                <div className="flex items-center gap-2 mb-2">
-                  <Users className="w-4 h-4 text-tb-blue" />
-                  <span className="text-sm font-semibold text-tb-blue">Simple et gratuit</span>
+              <div className="space-y-3 mb-6">
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-tb-blue flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-sm text-foreground">Simple et gratuit</p>
+                    <p className="text-xs text-muted-foreground">Gratuit jusqu'à 50 000 FCFA</p>
+                  </div>
                 </div>
-                <p className="text-xs text-muted-foreground">
-                  Gratuit jusqu'à 50 000 FCFA. Partagez sur WhatsApp, Facebook, Telegram. Retrait direct sur Mobile Money.
-                </p>
+                <div className="flex items-start gap-3">
+                  <CheckCircle2 className="w-5 h-5 text-tb-blue flex-shrink-0 mt-0.5" />
+                  <div>
+                    <p className="font-semibold text-sm text-foreground">Retrait direct</p>
+                    <p className="text-xs text-muted-foreground">Sur votre compte Orange Money</p>
+                  </div>
+                </div>
               </div>
 
               <Link href="/ma-cagnotte/creer">
-                <Button className="w-full bg-tb-blue hover:bg-tb-blue/90 text-white h-12 rounded-xl text-base gap-2 font-semibold">
-                  Lancer une cagnotte avec Ma Cagnotte
+                <Button className="w-full bg-tb-blue hover:bg-tb-blue/90 text-white h-12 rounded-xl font-semibold gap-2">
+                  Créer une cagnotte
                   <ArrowRight className="w-5 h-5" />
                 </Button>
               </Link>
@@ -197,31 +262,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── Actualités ───────────────────────────────────────── */}
-      <section className="py-10 sm:py-16">
+      {/* ─── How It Works Section ─────────────────────────────────── */}
+      <section className="py-16 sm:py-24 bg-gradient-to-b from-tb-green/5 to-white">
         <div className="container">
-          <div className="flex items-center justify-between mb-8">
+          <div className="text-center mb-12 space-y-3">
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Comment ça marche ?</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Quatre étapes simples pour commencer votre aventure Terra Biga
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {HOW_IT_WORKS.map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div key={idx} className="relative">
+                  {/* Connector line */}
+                  {idx < HOW_IT_WORKS.length - 1 && (
+                    <div className="hidden lg:block absolute top-12 left-1/2 w-full h-0.5 bg-gradient-to-r from-tb-green/30 to-transparent" />
+                  )}
+
+                  <div className="relative bg-white rounded-xl border border-border p-6 hover:shadow-md transition-shadow">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 rounded-full bg-tb-green/10 flex items-center justify-center">
+                        <Icon className="w-6 h-6 text-tb-green" />
+                      </div>
+                      <span className="text-2xl font-bold text-tb-green/30">{item.step}</span>
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Actualités Section ───────────────────────────────────── */}
+      <section className="py-16 sm:py-24 bg-white">
+        <div className="container">
+          <div className="flex items-center justify-between mb-10">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-tb-orange/10 flex items-center justify-center">
-                <Newspaper className="w-5 h-5 text-tb-orange" />
+              <div className="w-12 h-12 rounded-xl bg-tb-orange/10 flex items-center justify-center">
+                <Newspaper className="w-6 h-6 text-tb-orange" />
               </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground">Actualités</h2>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Actualités</h2>
             </div>
             <a
               href="https://terrabiga.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-tb-orange hover:underline hidden sm:flex items-center gap-1"
+              className="text-sm text-tb-orange hover:underline hidden sm:flex items-center gap-1 font-medium"
             >
-              Voir tout <ExternalLink className="w-3.5 h-3.5" />
+              Voir tout <ExternalLink className="w-4 h-4" />
             </a>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {NEWS.map((article, i) => (
               <div key={i} className="tb-card hover:shadow-md transition-shadow">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-tb-orange bg-tb-orange/10 px-2 py-0.5 rounded-full">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-tb-orange bg-tb-orange/10 px-2.5 py-1 rounded-full">
                     {article.tag}
                   </span>
                   <span className="text-[10px] text-muted-foreground">{article.date}</span>
@@ -237,28 +339,26 @@ export default function Home() {
             href="https://terrabiga.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-4 text-sm text-tb-orange hover:underline flex sm:hidden items-center gap-1 justify-center"
+            className="mt-8 text-sm text-tb-orange hover:underline flex sm:hidden items-center gap-1 justify-center font-medium"
           >
-            Voir toutes les actualités <ExternalLink className="w-3.5 h-3.5" />
+            Voir toutes les actualités <ExternalLink className="w-4 h-4" />
           </a>
         </div>
       </section>
 
-      {/* ─── Partenaires ──────────────────────────────────────── */}
-      <section className="py-8 sm:py-12 bg-white border-y border-border">
+      {/* ─── Partners Section ─────────────────────────────────────── */}
+      <section className="py-12 sm:py-16 bg-white border-t border-border">
         <div className="container">
-          <p className="text-xs text-muted-foreground text-center mb-6 uppercase tracking-wider font-medium">
+          <p className="text-xs text-muted-foreground text-center mb-8 uppercase tracking-wider font-semibold">
             Ils nous font confiance
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10">
-            {PARTNERS.map((p) => (
-              <div key={p.name} className="flex flex-col items-center gap-1.5">
-                {p.img ? (
-                  <img src={p.img} alt={p.name} className="h-10 sm:h-12 w-auto object-contain grayscale hover:grayscale-0 transition-all" loading="lazy" />
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12">
+            {PARTNERS.map((partner, i) => (
+              <div key={i} className="flex items-center justify-center h-12">
+                {partner.img ? (
+                  <img src={partner.img} alt={partner.name} className="h-8 object-contain opacity-70 hover:opacity-100 transition-opacity" />
                 ) : (
-                  <div className="h-10 sm:h-12 flex items-center px-3">
-                    <span className="text-xs font-semibold text-muted-foreground">{p.name}</span>
-                  </div>
+                  <span className="text-xs font-semibold text-muted-foreground">{partner.name}</span>
                 )}
               </div>
             ))}
@@ -266,26 +366,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── WhatsApp CTA ─────────────────────────────────────── */}
-      <section className="py-10 sm:py-14 bg-gradient-to-r from-tb-green to-tb-green/90">
-        <div className="container text-center">
-          <MessageCircle className="w-10 h-10 text-white/80 mx-auto mb-3" />
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">Rejoignez notre communauté WhatsApp</h2>
-          <p className="text-white/80 mb-6 max-w-md mx-auto text-sm sm:text-base">
-            Restez informé des nouveaux groupes d'achat, des offres exclusives et des actualités Terra Biga.
+      {/* ─── Final CTA Section ────────────────────────────────────── */}
+      <section className="py-16 sm:py-24 bg-gradient-to-r from-tb-green/10 to-tb-blue/10">
+        <div className="container text-center space-y-6">
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground">Prêt à rejoindre la communauté ?</h2>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Commencez dès aujourd'hui à économiser et à financer vos projets de vie avec Terra Biga.
           </p>
-          <a
-            href="https://chat.whatsapp.com/terrabiga"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button className="bg-white text-tb-green hover:bg-white/90 h-12 px-8 text-base rounded-xl gap-2 font-semibold">
-              <svg viewBox="0 0 24 24" className="w-5 h-5" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-              </svg>
-              Rejoindre le groupe WhatsApp
-            </Button>
-          </a>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
+            <Link href="/te-raga">
+              <Button className="bg-tb-green hover:bg-tb-green/90 text-white h-12 rounded-xl text-base font-semibold px-8">
+                Découvrir Te Raga
+              </Button>
+            </Link>
+            <Link href="/ma-cagnotte/creer">
+              <Button variant="outline" className="h-12 rounded-xl text-base font-semibold px-8">
+                Créer une cagnotte
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </Layout>
