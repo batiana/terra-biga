@@ -83,7 +83,7 @@ export default function Home() {
     <Layout>
       {/* ─── Hero Section ────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-gradient-to-br from-tb-green/10 via-white to-tb-blue/10" style={{
-        backgroundImage: `linear-gradient(to right, rgba(11,22,40,0.75) 50%, transparent 100%), url('${HERO_IMG}')`,
+        backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.70) 40%, rgba(0,0,0,0.25) 100%), url('${HERO_IMG}')`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
@@ -99,10 +99,10 @@ export default function Home() {
 
               {/* Main Headline */}
               <div className="space-y-4">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
+               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white">
                   Ensemble, on va plus loin.
                 </h1>
-                <h2 className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-xl">
+              <h2 className="text-base sm:text-lg text-gray-100 max-w-lg leading-relaxed">
                   Première plateforme communautaire d'achat groupé et de financement collectif au Burkina Faso.
                 </h2>
               </div>
@@ -112,16 +112,16 @@ export default function Home() {
               {/* Stats */}
               <div className="grid grid-cols-3 gap-4 pt-4">
                 <div className="space-y-1">
-                  <p className="text-2xl sm:text-3xl font-bold text-tb-green">600+</p>
-                  <p className="text-xs text-muted-foreground">Contributions</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">600+</p>
+                  <p className="text-xs text-gray-300">Contributions</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-2xl sm:text-3xl font-bold text-tb-orange">9M</p>
-                  <p className="text-xs text-muted-foreground">FCFA mobilisés</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">9M</p>
+                  <p className="text-xs text-gray-300">FCFA mobilisés</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-2xl sm:text-3xl font-bold text-tb-blue">1250+</p>
-                  <p className="text-xs text-muted-foreground">Membres actifs</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-white">1250+</p>
+                  <p className="text-xs text-gray-300">Membres actifs</p>
                 </div>
               </div>
 
@@ -134,7 +134,7 @@ export default function Home() {
                   </Button>
                 </Link>
                 <Link href="/ma-cagnotte/creer">
-                  <Button variant="outline" className="w-full sm:w-auto h-12 rounded-xl text-base font-semibold px-6">
+                  <Button variant="outline" className="w-full sm:w-auto h-12 rounded-xl text-base font-semibold px-6 border-2 border-white text-white hover:bg-white/10">
                     Créer une cagnotte
                   </Button>
                 </Link>
